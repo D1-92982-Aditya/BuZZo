@@ -8,6 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    navigate('/search');
     console.log('Login attempt:', { email, password });
   };
   const goToSignup = () => {
