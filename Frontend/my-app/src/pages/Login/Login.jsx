@@ -14,7 +14,11 @@ const Login = () => {
     console.log('Button clixke')
     navigate('/sign-up'); // <-- navigate to signup path
   };
-
+  const goToForgot = () => {
+    console.log('Button clixke')
+    navigate('/forget'); // <-- navigate to signup path
+  };
+  
   return (
     <>
       {/* Bootstrap CDN */}
@@ -79,7 +83,7 @@ const Login = () => {
 
           {/* Footer Links */}
           <div className="footer-links">
-            <label className="d-flex align-items-center">
+            <label className="d-flex align-items-center" onClick={goToForgot}>
               <input type="checkbox" />
               <span>Forgot Password?</span>
             </label>
