@@ -15,7 +15,7 @@ const Login = () => {
     navigate('/sign-up'); // <-- navigate to signup path
   };
   const goToForgot = () => {
-    console.log('Button clixke')
+    console.log('Button clix')
     navigate('/forget'); // <-- navigate to signup path
   };
   
