@@ -90,7 +90,7 @@ const Forget = () => {
 
         {step === 2 && (
           <div className="otp-section">
-            <p>Enter the 4-digit OTP sent to your email</p>
+            <p>Enter the 4-digit OTP send to your email</p>
             <div className="otp-inputs">
               {otp.map((digit, index) => (
                 <input
