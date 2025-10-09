@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
+import busImage from '../../assets/bus.jpeg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
