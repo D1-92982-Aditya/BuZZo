@@ -50,7 +50,7 @@ const Login = () => {
               <h1 className="brand-name">Buzzo</h1>
             </div>
 
-            <h2 className="login-title">Login to your Account</h2>
+            <h2 className="login-title">LoginS to your Account</h2>
 
             {/* Email Input */}
             <div className="mb-3">
