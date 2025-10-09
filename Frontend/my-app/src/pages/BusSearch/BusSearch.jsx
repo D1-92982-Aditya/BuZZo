@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BusSearch = () => {
   const [fromCity, setFromCity] = useState('');
@@ -6,6 +7,7 @@ const BusSearch = () => {
   const [travelDate, setTravelDate] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const navigate = useNavigate();
 
   const cities = [
     'New York', 'Boston', 'Philadelphia', 'Washington DC', 'Baltimore',
@@ -23,6 +25,7 @@ const BusSearch = () => {
   ];
 
   const handleSearch = () => {
+    navigate('/select-bus')
     if (fromCity && toCity && travelDate) {
       setSearchResults(buses);
       setHasSearched(true);

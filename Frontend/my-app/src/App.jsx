@@ -8,6 +8,7 @@ import Signup from './pages/SignUp/Signup'
 import Forget from './pages/Forget/Forget'
 import SeatDesign from './pages/SeatDesign/SeatDesign'
 import BusSearch from './pages/BusSearch/BusSearch'
+import SelectBus from './pages/SelectBus/SelectBus'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +22,7 @@ function App() {
         <Route path='/forget' element={<Forget/>}/>
         <Route path='/seat' element={<SeatDesign/>}/>
         <Route path='/search' element={<BusSearch/>}/>
+        <Route path='/select-bus' element={<SelectBus/>}/>
       </Routes>
     </>
   )

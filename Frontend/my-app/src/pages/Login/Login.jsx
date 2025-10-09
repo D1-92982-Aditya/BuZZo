@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './Login.css'
+import './Login.css';
 import { useNavigate } from 'react-router-dom';
+import { Bus } from 'lucide-react'; // ✅ Import Lucide Bus icon
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,26 +12,26 @@ const Login = () => {
     navigate('/search');
     console.log('Login attempt:', { email, password });
   };
+
   const goToSignup = () => {
-    console.log('Button clixke')
-    navigate('/sign-up'); // <-- navigate to signup path
+    console.log('Button clicked');
+    navigate('/sign-up');
   };
+
   const goToForgot = () => {
-    console.log('Button clix')
-    navigate('/forget'); // <-- navigate to signup path
+    console.log('Button clicked');
+    navigate('/forget');
   };
-  
+
   return (
     <>
       {/* Bootstrap CDN */}
-      <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
         crossOrigin="anonymous"
       />
-
-     
 
       <div className="login-container">
         <div className="background-image"></div>
@@ -38,15 +39,10 @@ const Login = () => {
 
         <div>
           <div className="login-card">
-            {/* Logo and Brand */}
-            <div className="logo-section">
-              <svg className="bus-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                <rect x="3" y="6" width="18" height="12" rx="2" strokeWidth={2} />
-                <circle cx="7" cy="16" r="1" fill="currentColor" />
-                <circle cx="17" cy="16" r="1" fill="currentColor" />
-              </svg>
-              <h1 className="brand-name">Buzzo</h1>
+            {/* ✅ Logo and Brand using Lucide Bus icon */}
+            <div className="logo-section d-flex align-items-center justify-content-center gap-2 mb-3">
+              <Bus size={36} color="#007bff" strokeWidth={2.5} /> {/* Lucide Bus icon */}
+              <h1 className="brand-name m-0">Buzzo</h1>
             </div>
 
             <h2 className="login-title">Login to your Account</h2>
@@ -74,10 +70,7 @@ const Login = () => {
             </div>
 
             {/* Login Button */}
-            <button 
-              className="btn btn-login"
-              onClick={handleLogin}
-            >
+            <button className="btn btn-login" onClick={handleLogin}>
               Login
             </button>
           </div>
@@ -88,7 +81,7 @@ const Login = () => {
               <input type="checkbox" />
               <span>Forgot Password?</span>
             </label>
-            
+
             <button className="d-flex align-items-center" onClick={goToSignup}>
               <span className="me-1">?</span>
               <span>Create an account</span>
@@ -98,6 +91,6 @@ const Login = () => {
       </div>
     </>
   );
-}
+};
 
 export default Login;
