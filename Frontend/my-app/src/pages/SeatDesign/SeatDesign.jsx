@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function BusSeatSelector() {
   const [selectedSeats, setSelectedSeats] = useState(['2A', '2B']);
   const bookedSeats = ['2E', '4D', '4F'];
   const seatPrice = 10.00;
   const taxes = 30.00;
+  const naviagte =useNavigate();
+  const proceedPayment =()=>{
+    naviagte('/payment');
+  }
 
   const toggleSeat = (seatNumber) => {
     if (bookedSeats.includes(seatNumber)) return;
@@ -659,7 +664,7 @@ export default function BusSeatSelector() {
                   </div>
                 </div>
                 
-                <button className="btn-payment">Proceed to Payment</button>
+                <button className="btn-payment" onClick={proceedPayment}>Proceed to Payment</button>
               </div>
             </div>
           </div>
