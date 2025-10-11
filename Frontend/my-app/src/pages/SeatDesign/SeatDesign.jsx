@@ -11,12 +11,7 @@ export default function BusSeatSelector() {
   const payments = () => {
     navigate('/payment');
   };
-  const seatPrice = 10.00;
-  const taxes = 30.00;
-  const naviagte =useNavigate();
-  const proceedPayment =()=>{
-    naviagte('/payment');
-  }
+  
 
   const toggleSeat = (seatNumber) => {
     if (bookedSeats.includes(seatNumber)) return;
