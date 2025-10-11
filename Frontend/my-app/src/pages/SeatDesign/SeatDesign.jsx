@@ -11,6 +11,12 @@ export default function BusSeatSelector() {
   const proceedPayment = () => {
     navigate('/payment');
   };
+  const seatPrice = 10.00;
+  const taxes = 30.00;
+  const naviagte =useNavigate();
+  const proceedPayment =()=>{
+    naviagte('/payment');
+  }
 
   const toggleSeat = (seatNumber) => {
     if (bookedSeats.includes(seatNumber)) return;
@@ -493,6 +499,8 @@ export default function BusSeatSelector() {
                 <button className="btn-payment" onClick={proceedPayment}>
                   Proceed to Payment
                 </button>
+                
+                <button className="btn-payment" onClick={proceedPayment}>Proceed to Payment</button>
               </div>
             </div>
           </div>
