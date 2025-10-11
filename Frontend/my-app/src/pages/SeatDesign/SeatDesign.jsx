@@ -5,10 +5,10 @@ export default function BusSeatSelector() {
   const [selectedSeats, setSelectedSeats] = useState(['2A', '2B']);
   const bookedSeats = ['2E', '4D', '4F'];
   const seatPrice = 10.0;
-  const taxes = 30.0;
+  const taxess = 30.0;
   const navigate = useNavigate();
 
-  const proceedPayment = () => {
+  const payments = () => {
     navigate('/payment');
   };
 
@@ -484,13 +484,13 @@ export default function BusSeatSelector() {
                 </div>
                 <div className="price-row">
                   <span>Taxes</span>
-                  <span>${taxes.toFixed(2)}</span>
+                  <span>${taxess.toFixed(2)}</span>
                 </div>
                 <div className="price-total">
                   <span>Total</span>
                   <span>${total.toFixed(2)}</span>
                 </div>
-                <button className="btn-payment" onClick={proceedPayment}>
+                <button className="btn-payment" onClick={payments}>
                   Proceed to Payment
                 </button>
               </div>
