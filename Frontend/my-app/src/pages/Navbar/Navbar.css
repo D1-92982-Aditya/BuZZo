@@ -1,0 +1,452 @@
+/* .items{
+    margin-left: 400px;
+    
+
+}
+.nav-item{
+    padding-left: 30px;
+}
+.Logout{
+   margin-left: 400px;
+} 
+ 
+.navbar {
+  padding: 10px 20px;
+} */
+
+/* Align items horizontally by default */
+/* .navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+} */
+
+/* ----- Responsive Styling (Below 500px) ----- */
+/* @media (max-width: 500px) {
+  /* Show the hamburger toggle button */
+  /* .navbar-toggler {
+    display: block !important;
+  }  */
+
+  /* Collapse (hide) the navbar links by default */
+  /* .navbar-collapse {
+    display: none !important;
+    width: 100%;
+  } */
+
+  /* When menu is open (Bootstrap adds .show), show vertically */
+  /* .navbar-collapse.show {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f9fa; /* match bg-light */
+    /* width: 100%;
+    padding: 10px 0;
+  } */ 
+
+  /* Stack nav links vertically */
+  /* .navbar-nav {
+    flex-direction: column;
+    gap: 10px;
+  } */
+
+  /* .nav-item {
+    width: 100%;}
+    /* text-align: center; */
+  
+
+  /* Center the logout button */
+  /* .Logout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+} */
+
+/* ----- Desktop view (>500px) ----- */
+/* @media (min-width: 501px ) {
+  .navbar-collapse {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+  .navbar-toggler {
+    display: none !important;
+  }
+} */
+
+
+
+
+
+/* .items {
+  margin-left: 400px;
+}
+
+.nav-item {
+  padding-left: 30px;
+}
+
+.Logout {
+  margin-left: 400px;
+}
+
+.navbar {
+  padding: 10px 20px;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+
+@media (max-width: 576px) {
+  .navbar-toggler {
+    display: block !important;
+  }
+
+  .navbar-collapse {
+    display: none !important;
+    width: 100%;
+  }
+
+  .navbar-collapse.show {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f9fa;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .Logout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+
+@media (min-width: 577px) and (max-width: 991px) {
+  .navbar-collapse {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .items {
+    margin-left: 150px;
+  }
+
+  .Logout {
+    margin-left: 100px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .navbar-toggler {
+    display: none !important;
+  }
+
+  .nav-item {
+    padding-left: 20px;
+  }
+}
+
+
+@media (min-width: 992px) {
+  .navbar-collapse {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+  .navbar-toggler {
+    display: none !important;
+  }
+
+  .items {
+    margin-left: 400px;
+  }
+
+  .Logout {
+    margin-left: 400px;
+  }
+}
+ */
+
+
+/* ========= Base Styles ========= */
+.navbar {
+  padding: 10px 20px;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25rem;
+}
+
+.items {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-item .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.nav-item .nav-link:hover {
+  color: #007bff;
+}
+
+/* Logout icon styling */
+.LogoutIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.logout-icon {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.logout-icon:hover {
+  transform: scale(1.1);
+  color: #c82333;
+}
+
+/* ========= Small Devices (Phones) ========= */
+@media (max-width: 576px) {
+  .navbar-toggler {
+    display: block !important;
+  }
+
+  .navbar-collapse {
+    display: none !important;
+    width: 100%;
+  }
+
+  .navbar-collapse.show {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f9fa;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .items {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-item {
+    width: 100%;
+    text-align: center;
+  }
+
+  .LogoutIcon {
+    margin-top: 10px;
+  }
+}
+
+/* ========= Medium Devices (Tablets) ========= */
+/* -------- Responsive Styles for Tablets (567px–767px) -------- */
+@media (min-width: 567px) and (max-width: 767px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .navbar-toggler {
+    border: none;
+    outline: none;
+  }
+
+  .navbar-collapse {
+    background-color: #ffffff;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    padding: 10px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-item {
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .nav-link:hover {
+    color: #0d6efd;
+  }
+
+  .LogoutIcon {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .logout-icon {
+    color: #dc3545;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .logout-icon:hover {
+    transform: scale(1.15);
+  }
+}
+
+/* -------- Tablet (767px to 991px) -------- */
+@media (min-width: 767px) and (max-width: 991px) {
+  .navbar-collapse {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Center nav items */
+  .items {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* adjust spacing between menu items */
+  }
+
+  .nav-item {
+    list-style: none;
+  }
+
+  .nav-link {
+    font-weight: 500;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #0d6efd;
+  }
+
+  /* Logout icon aligned right */
+  .LogoutIcon {
+    margin-left: auto;
+  }
+
+  .logout-icon {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .logout-icon:hover {
+    transform: scale(1.2);
+  }
+
+  /* Hide hamburger since not needed on medium screens */
+  .navbar-toggler {
+    display: none !important;
+  }
+}
+
+
+
+/* ========= Large Devices (Desktops) ========= */
+/* -------- Desktop (≥992px) -------- */
+@media (min-width: 992px) {
+  .navbar-collapse {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Center nav items */
+  .items {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* centers items horizontally */
+    gap: 50px; /* spacing between menu items */
+  }
+
+  .nav-item {
+    list-style: none;
+  }
+
+  .nav-link {
+    font-weight: 500;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #0d6efd;
+  }
+
+  /* Logout icon to the far right */
+  .LogoutIcon {
+    margin-left: auto;
+  }
+
+  .logout-icon {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .logout-icon:hover {
+    transform: scale(1.2);
+  }
+}
