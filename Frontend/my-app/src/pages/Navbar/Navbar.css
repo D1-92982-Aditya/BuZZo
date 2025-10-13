@@ -43,10 +43,11 @@
   color: #c82333;
 }
 
-/* ========= Small Devices (Phones) ========= */
+
 @media (max-width: 576px) {
   .navbar-toggler {
     display: block !important;
+    margin-left: auto; 
   }
 
   .navbar-collapse {
@@ -57,29 +58,36 @@
   .navbar-collapse.show {
     display: flex !important;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end; /* align menu under the toggler */
     background-color: #f8f9fa;
-    width: 100%;
-    padding: 10px 0;
+    width: auto;
+    padding: 10px 15px;
+    position: absolute;
+    top: 60px; /* positions dropdown right below the navbar */
+    right: 10px; /* keeps it aligned with toggler */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
   }
 
   .items {
     flex-direction: column;
-    gap: 12px;
+    align-items: flex-end;
+    gap: 10px;
   }
 
   .nav-item {
-    width: 100%;
-    text-align: center;
+    text-align: right;
   }
 
   .LogoutIcon {
     margin-top: 10px;
+    text-align: right;
+    width: 100%;
   }
 }
 
-/* ========= Medium Devices (Tablets) ========= */
-/* -------- Responsive Styles for Tablets (567px–767px) -------- */
+
 @media (min-width: 567px) and (max-width: 767px) {
   .navbar {
     padding: 0.8rem 1rem;
@@ -147,7 +155,7 @@
   }
 }
 
-/* -------- Tablet (767px to 991px) -------- */
+
 @media (min-width: 767px) and (max-width: 991px) {
   .navbar-collapse {
     display: flex !important;
@@ -156,12 +164,12 @@
     width: 100%;
   }
 
-  /* Center nav items */
+  
   .items {
     flex: 1;
     display: flex;
     justify-content: center;
-    gap: 40px; /* adjust spacing between menu items */
+    gap: 40px; 
   }
 
   .nav-item {
@@ -178,7 +186,7 @@
     color: #0d6efd;
   }
 
-  /* Logout icon aligned right */
+  
   .LogoutIcon {
     margin-left: auto;
   }
@@ -192,7 +200,7 @@
     transform: scale(1.2);
   }
 
-  /* Hide hamburger since not needed on medium screens */
+  
   .navbar-toggler {
     display: none !important;
   }
@@ -200,8 +208,7 @@
 
 
 
-/* ========= Large Devices (Desktops) ========= */
-/* -------- Desktop (≥992px) -------- */
+
 @media (min-width: 992px) {
   .navbar-collapse {
     display: flex !important;
@@ -210,12 +217,12 @@
     width: 100%;
   }
 
-  /* Center nav items */
+  
   .items {
     flex: 1;
     display: flex;
-    justify-content: center; /* centers items horizontally */
-    gap: 50px; /* spacing between menu items */
+    justify-content: center; 
+    gap: 50px; 
   }
 
   .nav-item {
@@ -232,7 +239,7 @@
     color: #0d6efd;
   }
 
-  /* Logout icon to the far right */
+  
   .LogoutIcon {
     margin-left: auto;
   }

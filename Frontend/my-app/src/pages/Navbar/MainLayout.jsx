@@ -8,7 +8,7 @@ const MainLayout = () => {
     <>
       <TopNav />
       <div className="container mt-4">
-        <Outlet /> {/* This renders child pages */}
+        <Outlet /> 
       </div>
     </>
   );

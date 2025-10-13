@@ -1,14 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { LogOut, Bus } from "lucide-react"; // icons
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const handleLogout = () => {
-    // TODO: Add your logout logic here (e.g. clear tokens, redirect)
+    localStorage.removeItem("token"); // example
     console.log("User logged out");
+   navigate("/");
   };
 
   return (
@@ -37,7 +39,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav items">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/search">Home</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link>
