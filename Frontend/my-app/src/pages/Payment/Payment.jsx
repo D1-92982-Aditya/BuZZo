@@ -54,7 +54,7 @@ const Payment = () => {
           cursor: "pointer",
         }}
       >
-        Pay ₹500
+        Pay ₹600
       </button>
     </div>
   );
