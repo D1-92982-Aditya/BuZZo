@@ -61,7 +61,7 @@
     align-items: flex-end; /* align menu under the toggler */
     background-color:rgb(185, 176, 176);
     width: auto;
-    padding: 10px 15px;
+    padding: 11px 15px;
     position: absolute;
     top: 60px; /* positions dropdown right below the navbar */
     right: 10px; /* keeps it aligned with toggler */
