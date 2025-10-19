@@ -12,6 +12,7 @@ import SelectBus from './pages/SelectBus/SelectBus'
 import Payment from './pages/Payment/Payment'
 import TopNav from './pages/Navbar/Navbar'
 import MainLayout from './pages/Navbar/MainLayout'
+import Help from './pages/Help/Help'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,6 +26,7 @@ function App() {
         <Route path='/search' element={<BusSearch/>}/>
         <Route path='/select-bus' element={<SelectBus/>}/>
         <Route path='/payment' element={<Payment/>}/>
+        <Route path='/help' element={<Help/>}/>
           
         </Route>
         <Route>
