@@ -385,21 +385,7 @@ export default function BusSeatSelector() {
 
       {/* Header */}
       <div className="main-container">
-        <div className="header">
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="d-flex align-items-center gap-3">
-              <div className="logo">🚌</div>
-              <span className="brand-name">Buzzo</span>
-            </div>
-            <div className="d-flex align-items-center gap-3">
-              <a className="nav-link">🔍 Search</a>
-              <a className="nav-link">My Bookings</a>
-              <a className="nav-link">❓ Help</a>
-              <a className="nav-link">👤 Login</a>
-              <button className="btn-modify">Modify</button>
-            </div>
-          </div>
-        </div>
+        
 
         {/* Main Section */}
         <div className="p-4">

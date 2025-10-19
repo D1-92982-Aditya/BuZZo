@@ -813,21 +813,7 @@ const BusSearch = () => {
       `}</style>
 
       {/* Top Navigation Bar */}
-      <div className="top-navbar">
-        <div className="nav-content">
-          <div className="nav-logo">
-            <div className="nav-logo-icon">🚌</div>
-            <div className="nav-logo-text">Buzzo</div>
-          </div>
-          <div className="nav-links">
-            <a className="nav-link active">Home</a>
-            <a className="nav-link">My Bookings</a>
-            <a className="nav-link">Help</a>
-            <a className="nav-link">About Us</a>
-            <a className="nav-link">Login</a>
-          </div>
-        </div>
-      </div>
+    
 
       {/* Animated Bus Section */}
       <div className="animation-section">
