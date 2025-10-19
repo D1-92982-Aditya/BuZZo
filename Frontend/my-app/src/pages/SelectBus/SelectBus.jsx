@@ -281,29 +281,7 @@ const SelectBus = () => {
   return (
     <div style={styles.container}>
       {/* Header */}
-      <nav style={styles.navbar}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={styles.logo}>
-              <span style={styles.busIcon}>🚌</span> Buzzo
-            </div>
-            <div style={styles.routeBox}>
-              <div style={styles.badge}>📍</div>
-              <div>
-                <div style={{ fontSize: '14px', fontWeight: '500' }}>New York to Boston</div>
-                <div style={{ fontSize: '12px', color: '#aaa' }}>2024-10-26</div>
-              </div>
-            </div>
-          </div>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <button style={styles.navButton}>Search</button>
-            <button style={styles.navButton}>My Bookings</button>
-            <button style={styles.navButton}>Help</button>
-            <button style={styles.navButton}>Login</button>
-            <button style={styles.modifyButton}>Modify Search</button>
-          </div>
-        </div>
-      </nav>
+     
 
       {/* Sort By Options */}
       <div style={styles.sortContainer}>
