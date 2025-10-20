@@ -10,10 +10,22 @@ const BusSearch = () => {
   const navigate = useNavigate();
 
   const cities = [
-    'New York', 'Boston', 'Philadelphia', 'Washington DC', 'Baltimore',
-    'Chicago', 'Los Angeles', 'San Francisco', 'Miami', 'Atlanta',
-    'Seattle', 'Denver', 'Dallas', 'Houston', 'Phoenix'
+    'Pune', 'Mumbai',
+'Nashik',
+'Delhi', 'Jaipur',
+'Bengaluru', 'Chennai',
+'Hyderabad',
+'Nagpur', 'Bhopal',
+'Surat', 'Ahmedabad',
+'Indore', 
+'Goa'
   ];
+  const boardingPointsData = {
+   
+  };
+  const droppingPointsData = {
+    
+  };
 
   const buses = [
     { id: 1, name: 'QuickBus Express', type: 'AC Sleeper', time: '7:00 AM', duration: '4h 30m', price: 45, rating: 4.5, seats: 15 },
@@ -25,11 +37,19 @@ const BusSearch = () => {
   ];
 
   const handleSearch = () => {
-    navigate('/select-bus')
-    if (fromCity && toCity && travelDate) {
-      setSearchResults(buses);
-      setHasSearched(true);
-    }
+     if (!fromCity || !toCity || !travelDate) {
+    alert("Please select From, To and Date");
+    return;
+  }
+
+ 
+  const filteredBuses = buses.filter(bus => true); 
+
+  setSearchResults(filteredBuses);
+  setHasSearched(true);
+
+  
+   navigate("/select-bus", { state: { fromCity, toCity, travelDate } });
   };
 
   const swapCities = () => {

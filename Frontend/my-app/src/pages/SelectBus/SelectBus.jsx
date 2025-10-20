@@ -1,3 +1,15 @@
+import React, { useState } from 'react';
+import { useNavigate,useLocation} from 'react-router-dom';
+
+const SelectBus = () => {
+    const navigate = useNavigate();
+     const location = useLocation();
+
+  // Get data passed from SearchBus page
+  const { fromCity, toCity } = location.state || {};
+
+    const busBook =()=>{
+        navigate('/seat')
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
@@ -395,6 +407,49 @@ const SelectBus = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState([500, 2000]);
   const [sortBy, setSortBy] = useState('departure');
+  const routePoints = {"Pune-Mumbai": {
+      boarding: ['Shivaji Nagar','Kothrud','Wakad','Swargate'],
+      dropping: ['Bandra','Andheri','Borivali','Thane']
+    },
+    "Mumbai-Goa": {
+      boarding: ["Borivali", "Dadar", "Bandra"],
+      dropping: ["Mapusa", "Panaji", "Margao"]
+    },
+    "Delhi-Agra": {
+      boarding: ["Kashmere Gate", "Sarojini Nagar"],
+      dropping: ["Agra Fort", "Sikandra"]
+    },
+    "Chennai-Bangalore": {
+      boarding: ["T. Nagar", "Guindy", "CMBT"],
+      dropping: ["Silk Board", "Majestic", "Hebbal"]
+    },
+    "Pune-Indore":{
+       boarding: ["Alandi Phata", "Aundh", "Balewadi","Baner","Bhosari","Chakan"],
+      dropping: ["Bengali Square", "Crystal IT park", "Dhamnod","Mangliya","Manpur"]
+    },
+    "Hyderabad-Vijaywada":{
+      boarding:["Miyapur","Ammerpet","LB Nagar"],
+      dropping:["Benz Circle","Ramavarappadu","Auto Nagar"]
+    },
+    "Ahmedabad-Udaipur":{
+      boarding:["Naroda","Paldi","S.G Highway"],
+      dropping:["Hiran Magri","Chetak Circle","Fatehpura"]
+    },
+    "Nagpur-Nashik":{
+      boarding:["Sitabuldi","Wardhaman Nagar","Wadi"],
+      dropping:["Dwarka Circle","CBS","Panchavati"]
+    },
+    "Lucknow-Kanpur":{
+      boarding:["Alambagh","Charbagh","Amausi"],
+      dropping:["Jhakarkati","Rawatpur","Govind Nagar"]
+    },
+    "Surat-Mumbai":{
+      boarding:["Adajan","Varachha","Kamrej"],
+      dropping:["Borivali","Andheri","Dadar"]
+    }
+ };
+  const routeKey = `${fromCity}-${toCity}`;
+   const currentRoute = routePoints[routeKey] || { boarding: [], dropping: [] };
   const [selectedFilters, setSelectedFilters] = useState({
     morning: false,
     evening: false,
@@ -557,6 +612,88 @@ const SelectBus = () => {
           onClick={() => setShowFilters(false)}
         />
 
+              {/* Bus Operator */}
+              <div style={styles.filterSection}>
+                <h6 style={styles.filterSectionTitle}>Bus Operator</h6>
+                <div style={styles.checkbox}>
+                  <input 
+                    style={styles.checkboxInput}
+                    type="checkbox" 
+                    id="acManager"
+                    checked={selectedFilters.acManager}
+                    onChange={() => handleFilterChange('acManager')}
+                  />
+                  <label style={styles.checkboxLabel} htmlFor="acManager">
+                    AC Manager
+                  </label>
+                </div>
+                <div style={styles.checkbox}>
+                  <input 
+                    style={styles.checkboxInput}
+                    type="checkbox" 
+                    id="himlat"
+                    checked={selectedFilters.himlat}
+                    onChange={() => handleFilterChange('himlat')}
+                  />
+                  <label style={styles.checkboxLabel} htmlFor="himlat">
+                    Himlat Miti Patel
+                  </label>
+                </div>
+                <div style={styles.checkbox}>
+                  <input 
+                    style={styles.checkboxInput}
+                    type="checkbox" 
+                    id="appotiam"
+                    checked={selectedFilters.appotiam}
+                    onChange={() => handleFilterChange('appotiam')}
+                  />
+                  <label style={styles.checkboxLabel} htmlFor="appotiam">
+                    Appotiam Pnis
+                  </label>
+                </div>
+              </div>
+                            {/* Boarding Points */}
+<div style={styles.filterSection}>
+  <h6 style={styles.filterSectionTitle}>Boarding Points</h6>
+  {currentRoute.boarding.length > 0 ? (
+    currentRoute.boarding.map((point, i) => (
+      <div style={styles.checkbox} key={i}>
+        <input 
+          style={styles.checkboxInput}
+          type="checkbox" 
+          id={`boarding-${i}`}
+        />
+        <label style={styles.checkboxLabel} htmlFor={`boarding-${i}`}>
+          {point}
+        </label>
+      </div>
+    ))
+  ) : (
+    <p style={{ fontSize: '13px', color: '#666' }}>No boarding points found for this route</p>
+  )}
+</div>
+
+{/* Dropping Points */}
+<div style={styles.filterSection}>
+  <h6 style={styles.filterSectionTitle}>Dropping Points</h6>
+  {currentRoute.dropping.length > 0 ? (
+    currentRoute.dropping.map((point, i) => (
+      <div style={styles.checkbox} key={i}>
+        <input 
+          style={styles.checkboxInput}
+          type="checkbox" 
+          id={`dropping-${i}`}
+        />
+        <label style={styles.checkboxLabel} htmlFor={`dropping-${i}`}>
+          {point}
+        </label>
+      </div>
+    ))
+  ) : (
+    <p style={{ fontSize: '13px', color: '#666' }}>No dropping points found for this route</p>
+  )}
+</div>
+            </div>
         <div style={styles.gridContainer}>
           <div style={styles.filterSidebar}>
             <FilterCard 
