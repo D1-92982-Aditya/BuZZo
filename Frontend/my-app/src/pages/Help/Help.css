@@ -78,6 +78,10 @@
   padding: 10px 15px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   border: 1px solid #ddd;
+   box-sizing: border-box;
+   overflow: hidden; 
+
+
 }
 
 .search-bar input {
@@ -202,6 +206,8 @@
   .help-page {
     flex-direction: column;
     height: auto;
+    align-items: center;/*changes*/
+
   }
 
   .sidebar {
