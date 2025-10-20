@@ -40,6 +40,69 @@ const FilterCheckbox = ({ id, label, checked, onChange }) => (
   </div>
 );
 
+//main component 
+const SelectBus = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { fromCity, toCity } = location.state || {};
+  
+  const routePoints = {"Pune-Mumbai": {
+      boarding: ['Shivaji Nagar','Kothrud','Wakad','Swargate'],
+      dropping: ['Bandra','Andheri','Borivali','Thane']
+    },
+    "Mumbai-Goa": {
+      boarding: ["Borivali", "Dadar", "Bandra"],
+      dropping: ["Mapusa", "Panaji", "Margao"]
+    },
+    "Delhi-Agra": {
+      boarding: ["Kashmere Gate", "Sarojini Nagar"],
+      dropping: ["Agra Fort", "Sikandra"]
+    },
+    "Chennai-Bangalore": {
+      boarding: ["T. Nagar", "Guindy", "CMBT"],
+      dropping: ["Silk Board", "Majestic", "Hebbal"]
+    },
+    "Pune-Indore":{
+       boarding: ["Alandi Phata", "Aundh", "Balewadi","Baner","Bhosari","Chakan"],
+      dropping: ["Bengali Square", "Crystal IT park", "Dhamnod","Mangliya","Manpur"]
+    },
+    "Hyderabad-Vijaywada":{
+      boarding:["Miyapur","Ammerpet","LB Nagar"],
+      dropping:["Benz Circle","Ramavarappadu","Auto Nagar"]
+    },
+    "Ahmedabad-Udaipur":{
+      boarding:["Naroda","Paldi","S.G Highway"],
+      dropping:["Hiran Magri","Chetak Circle","Fatehpura"]
+    },
+    "Nagpur-Nashik":{
+      boarding:["Sitabuldi","Wardhaman Nagar","Wadi"],
+      dropping:["Dwarka Circle","CBS","Panchavati"]
+    },
+    "Lucknow-Kanpur":{
+      boarding:["Alambagh","Charbagh","Amausi"],
+      dropping:["Jhakarkati","Rawatpur","Govind Nagar"]
+    },
+    "Surat-Mumbai":{
+      boarding:["Adajan","Varachha","Kamrej"],
+      dropping:["Borivali","Andheri","Dadar"]
+    }
+ };
+ const routeKey = `${fromCity}-${toCity}`;
+   const currentRoute = routePoints[routeKey] || { boarding: [], dropping: [] };
+ 
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showFilters, setShowFilters] = useState(false);
+  const [priceRange, setPriceRange] = useState([500, 2000]);
+  const [selectedFilters, setSelectedFilters] = useState({
+    morning: false,
+    evening: false,
+    night: false,
+    ac: false,
+    nonac: false,
+  });
+  
+
 // ✅ Filter Card Component
 const FilterCard = ({
   priceRange,
@@ -117,6 +180,64 @@ const FilterCard = ({
       </p>
     </div>
 
+
+    
+     {/* Boarding Points */}
+<div >
+  
+  <h6>Boarding Points</h6>
+  {currentRoute.boarding.length > 0 ? (
+    currentRoute.boarding.map((point, i) => (
+      
+      <div  style={{ marginBottom: "10px", display: "flex", alignItems: "center" }} key={i}>
+        <input 
+           style={{
+        width: "18px",
+        height: "18px",
+        marginRight: "10px",
+        cursor: "pointer",
+        accentColor: "#0d6efd",
+      }}
+          type="checkbox" 
+          id={`boarding-${i}`}
+        />
+        <label  style={{ fontSize: "14px", color: "#333", cursor: "pointer" }} htmlFor={`boarding-${i}`}>
+          {point}
+        </label>
+      </div>
+    ))
+  ) : (
+    <p style={{ fontSize: '13px', color: '#666' }}>No boarding points found for this route</p>
+  )}
+</div>
+
+{/* Dropping Points */}
+<div >
+  <h6 >Dropping Points</h6>
+  {currentRoute.dropping.length > 0 ? (
+    currentRoute.dropping.map((point, i) => (
+      <div  style={{ marginBottom: "10px", display: "flex", alignItems: "center" }} key={i}>
+        <input 
+        style={{
+        width: "18px",
+        height: "18px",
+        marginRight: "10px",
+        cursor: "pointer",
+        accentColor: "#0d6efd",
+         }}
+          type="checkbox" 
+          id={`dropping-${i}`}
+        />
+        <label style={{ fontSize: "14px", color: "#333", cursor: "pointer" }}  htmlFor={`dropping-${i}`}>
+          {point}
+        </label>
+      </div>
+    ))
+  ) : (
+    <p style={{ fontSize: '13px', color: '#666' }}>No dropping points found for this route</p>
+  )}
+</div>
+
     {isMobile && (
       <button
         style={{
@@ -181,22 +302,8 @@ const BusCard = ({ bus, onSelectSeats, isMobile }) => {
   );
 };
 
-// ✅ Main Component
-const SelectBus = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { fromCity, toCity } = location.state || {};
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [showFilters, setShowFilters] = useState(false);
-  const [priceRange, setPriceRange] = useState([500, 2000]);
-  const [selectedFilters, setSelectedFilters] = useState({
-    morning: false,
-    evening: false,
-    night: false,
-    ac: false,
-    nonac: false,
-  });
+
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
