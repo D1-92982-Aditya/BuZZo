@@ -1,4 +1,73 @@
 
+    /* Splash Screen Animation */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #007bff, #00bcd4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOut 1s ease-in-out 2.5s forwards;
+}
+
+.splash-content {
+  text-align: center;
+  animation: zoomIn 1s ease-in-out;
+}
+
+.splash-title {
+  color: white;
+  font-size: 2.5rem;
+  margin-top: 10px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  animation: pulse 2s infinite;
+}
+
+.bus-icon {
+  animation: bounce 1.5s infinite;
+}
+
+/* Animations */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+    
+    
     .login-container {
       min-height: 100vh;
       display: flex;
@@ -8,6 +77,7 @@
       position: relative;
       overflow: hidden;
     }
+    
 
     .background-image {
       position: absolute;

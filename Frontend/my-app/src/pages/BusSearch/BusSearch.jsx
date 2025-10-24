@@ -38,7 +38,7 @@ const BusSearch = () => {
 
   const handleSearch = () => {
      if (!fromCity || !toCity || !travelDate) {
-    alert("Please select From, To and Date");
+    navigate('/no-bus')
     return;
   }
 

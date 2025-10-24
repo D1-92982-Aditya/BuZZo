@@ -13,6 +13,9 @@ import Payment from './pages/Payment/Payment'
 import TopNav from './pages/Navbar/Navbar'
 import MainLayout from './pages/Navbar/MainLayout'
 import Help from './pages/Help/Help'
+import NoBusAvailable from './pages/Nobus/Nobus'
+import Tickit from './pages/Tickit/Tickit'
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,7 +28,9 @@ function App() {
         <Route path='/seat' element={<SeatDesign/>}/>
         <Route path='/search' element={<BusSearch/>}/>
         <Route path='/select-bus' element={<SelectBus/>}/>
+        <Route path='/no-bus' element={<NoBusAvailable/>}/>
         <Route path='/payment' element={<Payment/>}/>
+        <Route path='/ticket' element={<Tickit/>}/>
         <Route path='/help' element={<Help/>}/>
           
         </Route>

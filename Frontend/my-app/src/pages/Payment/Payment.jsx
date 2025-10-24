@@ -1,17 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
+  const navigate = useNavigate();
+
   const handlePayment = () => {
     const options = {
-      key: "rzp_test_RSGpEdKhXwSQdu", 
-      amount: 50000, 
+      key: "rzp_test_RSGpEdKhXwSQdu",
+      amount: 50000,
       currency: "INR",
       name: "Aditya's Project",
       description: "Test Transaction using Razorpay",
       image: "https://razorpay.com/favicon.png",
       handler: function (response) {
-        alert(" Payment Successful!");
+        navigate("/ticket");
+        alert("Payment Successful!");
         alert("Payment ID: " + response.razorpay_payment_id);
+
+        // ✅ Redirect to /tickit
+       
       },
       prefill: {
         name: "Aditya Waghmare",
