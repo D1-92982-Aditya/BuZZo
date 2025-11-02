@@ -14,7 +14,8 @@ import TopNav from './pages/Navbar/Navbar'
 import MainLayout from './pages/Navbar/MainLayout'
 import Help from './pages/Help/Help'
 import NoBusAvailable from './pages/Nobus/Nobus'
-import Tickit from './pages/Tickit/Tickit'
+import Ticket from './pages/Tickit/Ticket'
+import { BusProvider } from './pages/BusContext/BusContext'
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
 
   return (
     <>
-       
+       <BusProvider>
       <Routes>
         <Route element={<MainLayout/>}>
         <Route path='/seat' element={<SeatDesign/>}/>
@@ -30,7 +31,7 @@ function App() {
         <Route path='/select-bus' element={<SelectBus/>}/>
         <Route path='/no-bus' element={<NoBusAvailable/>}/>
         <Route path='/payment' element={<Payment/>}/>
-        <Route path='/ticket' element={<Tickit/>}/>
+        <Route path='/ticket' element={<Ticket/>}/>
         <Route path='/help' element={<Help/>}/>
           
         </Route>
@@ -41,6 +42,7 @@ function App() {
         </Route>
         
       </Routes>
+      </BusProvider>
     </>
   )
 }

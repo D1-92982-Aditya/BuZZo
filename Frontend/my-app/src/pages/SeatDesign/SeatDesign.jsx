@@ -51,7 +51,7 @@ export default function BusSeatSelector() {
         body {
           background: linear-gradient(135deg, #475569 0%, #64748b 50%, #475569 100%);
           min-height: 100vh;
-          padding: 2rem;
+          padding: 0;
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
           margin: 0;
         }

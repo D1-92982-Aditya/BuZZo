@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useBus } from "../BusContext/BusContext";
 import BoardingDroppingModal from "../BoardingDroppingModal/Modal";
 
 // ⭐ Star Rating Component
@@ -40,26 +41,6 @@ const FilterCheckbox = ({ id, label, checked, onChange }) => (
     </label>
   </div>
 );
-
-//main component 
-const SelectBus = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [showModal, setShowModal] = useState(false);
-  const { fromCity, toCity } = location.state || {};
-  useEffect(() => {setShowModal(true);}, []);
-  
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [showFilters, setShowFilters] = useState(false);
-  const [priceRange, setPriceRange] = useState([500, 2000]);
-  const [selectedFilters, setSelectedFilters] = useState({
-    morning: false,
-    evening: false,
-    night: false,
-    ac: false,
-    nonac: false,
-  });
-  
 
 // ✅ Filter Card Component
 const FilterCard = ({
@@ -158,8 +139,9 @@ const FilterCard = ({
 );
 
 // ✅ Bus Card Component
-const BusCard = ({ bus, onSelectSeats, isMobile }) => {
+const BusCard = ({ bus, onSelectSeats }) => {
   const [hover, setHover] = useState(false);
+
   return (
     <div
       style={{
@@ -182,7 +164,7 @@ const BusCard = ({ bus, onSelectSeats, isMobile }) => {
       </h5>
       <StarRating rating={bus.rating} />
       <p>{bus.time} | From: {bus.from}</p>
-      <p>Seats: {bus.seats}</p>
+      <p>Seats Available: {bus.seats}</p>
       <h3>₹{bus.discountPrice}</h3>
       <button
         style={{
@@ -193,7 +175,7 @@ const BusCard = ({ bus, onSelectSeats, isMobile }) => {
           borderRadius: "6px",
           cursor: "pointer",
         }}
-        onClick={onSelectSeats}
+        onClick={() => onSelectSeats(bus)}
       >
         Select Seats
       </button>
@@ -201,8 +183,32 @@ const BusCard = ({ bus, onSelectSeats, isMobile }) => {
   );
 };
 
+// ✅ Main Component
+const SelectBus = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { setSelectedBus } = useBus();
+  const [showModal, setShowModal] = useState(false);
+  const { fromCity, toCity } = location.state || {};
 
+  useEffect(() => {
+    setShowModal(true);
+  }, []);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showFilters, setShowFilters] = useState(false);
+  const [priceRange, setPriceRange] = useState([500, 2000]);
+  const [selectedFilters, setSelectedFilters] = useState({
+    morning: false,
+    evening: false,
+    night: false,
+    ac: false,
+    nonac: false,
+  });
+
+  const handleFilterChange = (filter) => {
+    setSelectedFilters((prev) => ({ ...prev, [filter]: !prev[filter] }));
+  };
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -210,11 +216,10 @@ const BusCard = ({ bus, onSelectSeats, isMobile }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleFilterChange = (filter) => {
-    setSelectedFilters((prev) => ({ ...prev, [filter]: !prev[filter] }));
+  const handleSelectSeats = (bus) => {
+    setSelectedBus(bus); // ✅ store globally
+    navigate("/seat");
   };
-
-  const handleSelectSeats = () => navigate("/seat");
 
   const buses = [
     {
@@ -249,10 +254,10 @@ const BusCard = ({ bus, onSelectSeats, isMobile }) => {
       }}
     >
       <div>
-      <h2>Select Bus Page</h2>
-      {/* Show modal if true */}
-      {showModal && <BoardingDroppingModal onClose={() => setShowModal(false)} />}
+        <h2>Select Bus Page</h2>
+        {showModal && <BoardingDroppingModal onClose={() => setShowModal(false)} />}
       </div>
+
       <h2>
         Buses from {fromCity || "Source"} to {toCity || "Destination"}
       </h2>
@@ -274,12 +279,7 @@ const BusCard = ({ bus, onSelectSeats, isMobile }) => {
           {/* Right side bus cards */}
           <div style={{ flex: "1" }}>
             {buses.map((bus) => (
-              <BusCard
-                key={bus.id}
-                bus={bus}
-                onSelectSeats={handleSelectSeats}
-                isMobile={isMobile}
-              />
+              <BusCard key={bus.id} bus={bus} onSelectSeats={handleSelectSeats} />
             ))}
           </div>
         </div>
@@ -340,12 +340,7 @@ const BusCard = ({ bus, onSelectSeats, isMobile }) => {
 
           <div style={{ marginTop: "20px" }}>
             {buses.map((bus) => (
-              <BusCard
-                key={bus.id}
-                bus={bus}
-                onSelectSeats={handleSelectSeats}
-                isMobile={isMobile}
-              />
+              <BusCard key={bus.id} bus={bus} onSelectSeats={handleSelectSeats} />
             ))}
           </div>
         </>
