@@ -1,0 +1,20 @@
+.admin-sidebar {
+  display: flex;
+  flex-direction: column;   /* makes everything vertical */
+  gap: 12px;               /* spacing between links */
+  width: 200px;
+}
+
+.admin-sidebar a {
+  display: block;          /* force NavLink to take full width */
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #1e293b;
+  border-radius: 6px;
+}
+
+.admin-sidebar a.active {
+  background: #e2ffee;
+  color: #0f766e;
+  font-weight: 600;
+}
