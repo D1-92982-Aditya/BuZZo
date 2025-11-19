@@ -1,0 +1,125 @@
+/* Container */
+.buslist-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+.buslist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.refresh-btn {
+  padding: 6px 14px;
+  border-radius: 5px;
+  border: 1px solid #3b82f6;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.refresh-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Card */
+.buslist-card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.buslist-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 800px;
+}
+
+.buslist-table th,
+.buslist-table td {
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.buslist-table th {
+  background-color: #f3f4f6;
+}
+
+.status.active {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.status.inactive {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.action-btn {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.edit-btn {
+  border: 1px solid #d1d5db;
+  background-color: #f9fafb;
+}
+
+.delete-btn {
+  border: 1px solid #fecaca;
+  background-color: #fee2e2;
+}
+
+/* Error text */
+.error-text {
+  color: red;
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .buslist-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .buslist-table {
+    font-size: 12px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .refresh-btn {
+    width: 100%;
+  }
+}

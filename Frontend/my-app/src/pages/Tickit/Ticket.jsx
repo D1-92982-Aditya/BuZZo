@@ -29,10 +29,12 @@ const Ticket = () => {
 
   const ticketData = {
     busName: selectedBus.name,
+    passengerName:selectedBus.passengerName,
     type: selectedBus.type,
-    date: selectedBus.time,
+    time: selectedBus.time,
     from: selectedBus.from,
-    to: "Pune Station",
+    to: selectedBus.to,
+    date:selectedBus.date,
     seat: selectedSeats?.join(", ") || "04",
     deck: "UPPER DECK",
     total: `₹${selectedBus.discountPrice}`,
@@ -59,7 +61,7 @@ const Ticket = () => {
 
     try {
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dt6eeo5u2/image/upload",
+        "https://api.cloudinary.com/v1_1/dt6eeo5u/2/image/upload",
         formData
       );
       setCloudURL(res.data.secure_url);
@@ -155,21 +157,26 @@ const Ticket = () => {
             {ticketData.type}
           </p>
           <p style={{ color: "#666", margin: "0 0 8px 0", fontSize: "14px" }}>
-            {ticketData.date}
+            {ticketData.time}
           </p>
         </div>
 
         {/* Passenger + Route Info */}
         <div style={{ marginBottom: "15px" }}>
           <p style={{ margin: "4px 0", fontSize: "15px", fontWeight: "bold" }}>
-            Passenger: {ticketData.passengerName || "Vaishnavi"}
+            Passenger: {ticketData.passengerName }
           </p>
           <p style={{ margin: "4px 0", fontSize: "14px" }}>
             Booking ID: <strong>{bookingId}</strong>
           </p>
           <p style={{ margin: "4px 0", fontSize: "14px" }}>
-            From: <strong>{ticketData.from}</strong> → To:{" "}
+            From: <strong>{ticketData.from}</strong> → To:
             <strong>{ticketData.to}</strong>
+          </p>
+         
+          <p style={{ margin: "4px 0", fontSize: "14px" }}>
+            Date: <strong>{ticketData.date}</strong> 
+            
           </p>
           <p style={{ margin: "4px 0", fontSize: "14px" }}>
             Seat: <strong>{ticketData.seat}</strong> ({ticketData.deck})
