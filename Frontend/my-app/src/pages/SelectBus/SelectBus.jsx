@@ -189,7 +189,7 @@ const SelectBus = () => {
   const location = useLocation();
   const { setSelectedBus } = useBus();
   const [showModal, setShowModal] = useState(false);
-  const { fromCity, toCity } = location.state || {};
+  const { fromCity, toCity,travelDate } = location.state || {};
 
   useEffect(() => {
     setShowModal(true);
@@ -228,7 +228,9 @@ const SelectBus = () => {
       type: "AC Sleeper",
       rating: 4,
       time: "07:00 AM",
+      date:travelDate,
       from: fromCity,
+      to:toCity,
       seats: 23,
       discountPrice: 900,
     },
@@ -239,6 +241,8 @@ const SelectBus = () => {
       rating: 4,
       time: "01:00 PM",
       from: fromCity,
+      to:toCity,
+      date:travelDate,
       seats: 15,
       discountPrice: 700,
     },

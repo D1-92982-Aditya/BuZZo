@@ -16,6 +16,10 @@ import Help from './pages/Help/Help'
 import NoBusAvailable from './pages/Nobus/Nobus'
 import Ticket from './pages/Tickit/Ticket'
 import { BusProvider } from './pages/BusContext/BusContext'
+import Dashboard from './admin/pages/Dashboard'
+import AdminNavbar from './admin/components/AdminNavbar'
+import AdminSidebar from './admin/components/AdminSidebar'
+
 
 
 function App() {
@@ -37,12 +41,17 @@ function App() {
         </Route>
         <Route>
           <Route path='/' element={<Login/>}/>
+          <Route path="/admin/login" element={<Login />} />
         <Route path='/sign-up' element={<Signup/>}/>
         <Route path='/forget' element={<Forget/>}/>
+        </Route>
+        <Route>
+          <Route path='/admin/login/dashboard' element={<Dashboard/>}/>
         </Route>
         
       </Routes>
       </BusProvider>
+     
     </>
   )
 }

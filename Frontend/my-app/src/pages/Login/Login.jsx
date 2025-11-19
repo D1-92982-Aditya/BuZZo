@@ -8,7 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+   const isAdminLogin = location.pathname === "/admin/login";
   // 🔊 Splash screen audio + timeout
   useEffect(() => {
     const audio = new Audio(
@@ -22,8 +22,22 @@ const Login = () => {
   }, []);
 
   const handleLogin = () => {
-    navigate("/search");
-    console.log("Login attempt:", { email, password });
+    if (isAdminLogin) {
+      // ADMIN LOGIN FLOW
+      const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
+      const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+
+      if (email === adminEmail && password === adminPassword) {
+        localStorage.setItem("isAdmin", "true");
+        navigate("/admin/login/dashboard");
+      } else {
+        alert("Invalid admin credentials");
+      }
+    } else {
+      // USER LOGIN FLOW
+      navigate("/search");
+      console.log("User login:", { email, password });
+    }
   };
 
   const goToSignup = () => navigate("/sign-up");
@@ -81,10 +95,10 @@ const Login = () => {
               </div>
 
               <button className="btn btn-login" onClick={handleLogin}>
-                Login
+                {isAdminLogin ? "Admin Login" : "Login"}
               </button>
             </div>
-
+            {!isAdminLogin &&(
             <div className="footer-links">
               <label className="d-flex align-items-center" onClick={goToForgot}>
                 <input type="checkbox" />
@@ -96,6 +110,7 @@ const Login = () => {
                 <span>Create an account</span>
               </button>
             </div>
+            )}
           </div>
         </div>
       )}
