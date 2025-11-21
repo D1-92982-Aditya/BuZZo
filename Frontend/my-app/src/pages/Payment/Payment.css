@@ -1,0 +1,98 @@
+.payment-page {
+  padding: 2rem;
+  background-color: #f2f6ff;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Card hover animation */
+.animated-card {
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+.animated-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Input animations */
+.animated-input {
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+.animated-input:focus {
+  outline: none;
+  border-color: #0f9d58;
+  box-shadow: 0 0 5px rgba(15,157,88,0.5);
+}
+
+/* Pay button */
+.pay-button {
+  padding: 12px 28px;
+  background: linear-gradient(90deg, #0f9d58, #34c759);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.pay-button:hover {
+  transform: scale(1.05);
+}
+.pay-button.disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* Total amount highlight */
+.total-amount {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #0f9d58;
+}
+
+/* Passenger card fade-in */
+.passenger-card {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.payment-boundary {
+  border: 4px solid #1a1a1a;       /* 🔥 Thick dark boundary */
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 950px;
+  margin: 30px auto;
+  background: #fff;
+}
+
+
+@media (max-width: 450px) {
+  .passenger-input-box {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .passenger-input-box input {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .passenger-input-box label {
+    font-size: 14px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
