@@ -19,6 +19,9 @@ import { BusProvider } from './pages/BusContext/BusContext'
 import Dashboard from './admin/pages/Dashboard'
 import AdminNavbar from './admin/components/AdminNavbar'
 import AdminSidebar from './admin/components/AdminSidebar'
+import About from './pages/About/About'
+import Mybooking from './pages/MyBooking/Mybooking'
+import { Contact } from 'lucide-react'
 
 
 
@@ -37,6 +40,11 @@ function App() {
         <Route path='/payment' element={<Payment/>}/>
         <Route path='/ticket' element={<Ticket/>}/>
         <Route path='/help' element={<Help/>}/>
+        <Route path='/about' element={<About/>}/>
+        <Route path='/bookings' element={<Mybooking/>}/>
+        <Route path='/contact' element={<Contact/>}/>
+       
+
           
         </Route>
         <Route>
