@@ -21,7 +21,8 @@ import AdminNavbar from './admin/components/AdminNavbar'
 import AdminSidebar from './admin/components/AdminSidebar'
 import About from './pages/About/About'
 import Mybooking from './pages/MyBooking/Mybooking'
-import { Contact } from 'lucide-react'
+
+import Contact from './pages/Contact/Contact'
 
 
 
