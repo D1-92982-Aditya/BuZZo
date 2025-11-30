@@ -3,6 +3,7 @@ import "./Dashboard.css";
 import AddBus from "./buses/AddBus";
 import BusList from "./buses/BusList";
 import { useNavigate } from "react-router-dom";
+import BookingList from "./buses/BookingList";
 // import api from "./buses/api"; // uncomment when backend is ready
 
 const Dashboard = () => {
@@ -159,6 +160,10 @@ const Dashboard = () => {
       );
     }
 
+    if (activeMenu === "bookings") {
+      return <BookingList />; // 🔥 NEW
+    }
+
     return <p>Select a menu option.</p>;
   };
 
@@ -189,6 +194,14 @@ const Dashboard = () => {
               onClick={() => setActiveMenu("buses-list")}
             >
               Buses List
+            </button>
+          </li>
+           <li>
+            <button
+              className={activeMenu === "bookings" ? "nav-link active" : "nav-link"}
+              onClick={() => setActiveMenu("bookings")}
+            >
+              Bookings
             </button>
           </li>
         </ul>
