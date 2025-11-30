@@ -22,6 +22,7 @@ import AdminSidebar from './admin/components/AdminSidebar'
 import About from './pages/About/About'
 import Mybooking from './pages/MyBooking/Mybooking'
 import { Contact } from 'lucide-react'
+import Chatbot from './pages/Chatbot/Chatbot'
 
 
 
@@ -31,6 +32,7 @@ function App() {
   return (
     <>
        <BusProvider>
+      <Chatbot />
       <Routes>
         <Route element={<MainLayout/>}>
         <Route path='/seat' element={<SeatDesign/>}/>
