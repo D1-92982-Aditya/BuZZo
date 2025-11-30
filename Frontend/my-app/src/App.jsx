@@ -24,6 +24,8 @@ import Mybooking from './pages/MyBooking/Mybooking'
 import { Contact } from 'lucide-react'
 import Chatbot from './pages/Chatbot/Chatbot'
 
+import Contact from './pages/Contact/Contact'
+
 
 
 function App() {
