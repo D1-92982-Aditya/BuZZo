@@ -8,11 +8,9 @@ const BookingList = () => {
   const pageSize = 5;
 
   useEffect(() => {
-    // Dummy data OR fetch from API
     setBookings([
       { id: 1, passengerName: "John", busName: "Bus A", date: "2025-01-20", seat: "A1", amount: 250 },
       { id: 2, passengerName: "Rita", busName: "Bus B", date: "2025-01-21", seat: "A2", amount: 300 },
-      // Add more rows...
     ]);
   }, []);
 
@@ -22,10 +20,13 @@ const BookingList = () => {
 
   const totalPages = Math.ceil(filtered.length / pageSize);
 
-  const paginated = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const paginated = filtered.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
-  const goToPage = (page) => {
-    if (page >= 1 && page <= totalPages) setCurrentPage(page);
+  const goToPage = (p) => {
+    if (p >= 1 && p <= totalPages) setCurrentPage(p);
   };
 
   return (
@@ -54,9 +55,7 @@ const BookingList = () => {
 
       {paginated.length > 0 && (
         <>
-          {/* Outer wrapper → vertical scroll */}
           <div className="table-outer-wrapper">
-            {/* Inner wrapper → horizontal scroll */}
             <div className="table-inner-wrapper">
               <table className="booking-table">
                 <thead>
@@ -85,13 +84,17 @@ const BookingList = () => {
             </div>
           </div>
 
-          {/* Pagination */}
           <div className="pagination">
             <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
               Prev
             </button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
               Next
             </button>
           </div>
