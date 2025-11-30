@@ -72,7 +72,31 @@
   margin: 30px auto;
   background: #fff;
 }
+/* Default: Desktop & Tablet (>= 765px) */
+.passenger-input-box {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
 
+.passenger-input-box .animated-input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+}
+
+/* Mobile & small tablets (< 765px): stack vertically */
+@media (max-width: 765px) {
+  .passenger-input-box {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .passenger-input-box .animated-input {
+    width: 100%;
+    height: 42px;
+  }
+}
 
 @media (max-width: 450px) {
   .passenger-input-box {

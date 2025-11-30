@@ -1,0 +1,92 @@
+/* Outer wrapper → vertical scroll */
+.table-outer-wrapper {
+  width: 100%;
+  max-height: 70vh;  /* vertical scroll limit */
+  overflow-y: auto;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Inner wrapper → horizontal scroll */
+.table-inner-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Table base */
+.booking-table {
+  width: 100%;
+  min-width: 700px; /* ensures horizontal scroll */
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.booking-table th, .booking-table td {
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap; /* prevents wrapping */
+}
+
+.booking-table thead {
+  background: #3b82f6;
+  color: white;
+}
+
+.booking-table tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.booking-table tr:hover {
+  background: #eef2ff;
+}
+
+/* Pagination styling same as before */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* Responsive table shrinking */
+@media (max-width: 900px) {
+  .booking-table { min-width: 600px; font-size: 13px; }
+  .booking-table th, .booking-table td { padding: 10px 8px; }
+}
+
+@media (max-width: 765px) {
+  .booking-table { min-width: 500px; font-size: 12px; }
+  .booking-table th, .booking-table td { padding: 8px 6px; }
+  .booking-title { font-size: 22px; }
+}
+
+@media (max-width: 600px) {
+  .booking-table { min-width: 450px; font-size: 11px; }
+  .booking-table th, .booking-table td { padding: 6px 4px; }
+  .booking-title { font-size: 20px; }
+}
+
+@media (max-width: 400px) {
+  .booking-table { min-width: 400px; font-size: 10px; }
+  .booking-table th, .booking-table td { padding: 4px 3px; }
+  .booking-title { font-size: 18px; }
+}
+
+/* Optional: custom scrollbar like Add Bus page */
+.table-outer-wrapper::-webkit-scrollbar,
+.table-inner-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-outer-wrapper::-webkit-scrollbar-thumb,
+.table-inner-wrapper::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.table-outer-wrapper::-webkit-scrollbar-thumb:hover,
+.table-inner-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
