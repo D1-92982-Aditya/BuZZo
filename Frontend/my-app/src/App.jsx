@@ -21,10 +21,10 @@ import AdminNavbar from './admin/components/AdminNavbar'
 import AdminSidebar from './admin/components/AdminSidebar'
 import About from './pages/About/About'
 import Mybooking from './pages/MyBooking/Mybooking'
-import { Contact } from 'lucide-react'
+import { Contact as ContactIcon } from 'lucide-react'
 import Chatbot from './pages/Chatbot/Chatbot'
 
-import Contact from './pages/Contact/Contact'
+import ContactPage from './pages/Contact/Contact'
 
 
 
@@ -46,7 +46,7 @@ function App() {
         <Route path='/help' element={<Help/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/bookings' element={<Mybooking/>}/>
-        <Route path='/contact' element={<Contact/>}/>
+        <Route path='/contact' element={<ContactPage/>}/>
        
 
           
