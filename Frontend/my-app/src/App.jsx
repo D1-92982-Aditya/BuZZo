@@ -10,7 +10,7 @@ import SeatDesign from './pages/SeatDesign/SeatDesign'
 import BusSearch from './pages/BusSearch/BusSearch'
 import SelectBus from './pages/SelectBus/SelectBus'
 import Payment from './pages/Payment/Payment'
-import TopNav from './pages/Navbar/Navbar'
+// TopNav is rendered inside MainLayout
 import MainLayout from './pages/Navbar/MainLayout'
 import Help from './pages/Help/Help'
 import NoBusAvailable from './pages/Nobus/Nobus'
@@ -21,8 +21,9 @@ import AdminNavbar from './admin/components/AdminNavbar'
 import AdminSidebar from './admin/components/AdminSidebar'
 import About from './pages/About/About'
 import Mybooking from './pages/MyBooking/Mybooking'
+// contact icon and chatbot are handled inside components where needed
 
-import Contact from './pages/Contact/Contact'
+import ContactPage from './pages/Contact/Contact'
 
 
 
@@ -31,7 +32,7 @@ function App() {
 
   return (
     <>
-       <BusProvider>
+      <BusProvider>
       <Routes>
         <Route element={<MainLayout/>}>
         <Route path='/seat' element={<SeatDesign/>}/>
@@ -43,7 +44,7 @@ function App() {
         <Route path='/help' element={<Help/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/bookings' element={<Mybooking/>}/>
-        <Route path='/contact' element={<Contact/>}/>
+        <Route path='/contact' element={<ContactPage/>}/>
        
 
           
@@ -67,4 +68,5 @@ function App() {
 }
 
 export default App
+//comment to remove
 

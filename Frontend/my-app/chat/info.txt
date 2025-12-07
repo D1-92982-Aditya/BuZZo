@@ -1,0 +1,41 @@
+ Integration Complete
+Files Created:
+Chatbot Components in Chatbot:
+
+Chatbot.jsx - Main component with chat logic
+ChatbotIcon.jsx - Bot avatar
+ChatForm.jsx - Message input form
+ChatMessage.jsx - Message display
+companyInfo.js - Company information for the bot
+Chatbot.css - Styling
+Configuration:
+
+Updated App.jsx to include the Chatbot component
+Created .env.local with backend API URL
+
+cd "c:\Users\alauk\Desktop\BuZZo\Frontend\my-app"
+npm run dev
+
+cd "c:\Users\alauk\Desktop\BuZZo\Frontend\my-app\chat"
+npm start
+
+The chatbot will appear as a floating widget in the bottom-right corner of your app. Click the chat icon to open/close it!
+
+Notes:
+The chatbot backend uses the Gemini API for responses
+Make sure your chat backend has the correct GEMINI_API_KEY in its .env file
+The chatbot will be available on all pages of your application
+
+npm install express cors dotenv @google/generative-ai google-auth-library
+
+cd chat
+npm start
+
+Changes Made:
+Added Material Icons Font to index.html
+
+Now the icons (message comment, close button, arrow) will display correctly instead of text labels
+Fixed Z-index Problems in Chatbot.css
+
+Chatbot button: z-index: 9999 (ensures it stays on top)
+Chatbot popup: z-index: 9998 (ensures the chat window is visible)
