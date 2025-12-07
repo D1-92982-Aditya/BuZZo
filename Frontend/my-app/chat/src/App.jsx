@@ -63,25 +63,61 @@ Respond concisely as Buzzo.
 
 
     try {
-      const backend = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+      // Call local backend proxy (which proxies to external REST API)
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
-      const res = await fetch(`${backend}/api/gemini`, {
+      const requestBody = { message: finalPrompt };
+      console.log("Sending request to:", `${backendUrl}/api/ask`);
+      console.log("Request body:", requestBody);
+
+      const res = await fetch(`${backendUrl}/api/ask`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: finalPrompt }),
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(requestBody),
       });
 
+      console.log("Response status:", res.status);
+
+      if (!res.ok) {
+        const errData = await res.text();
+        console.error("API error response:", errData);
+        throw new Error(`API error ${res.status}: ${errData || "Unknown error"}`);
+      }
+
       const data = await res.json();
+      console.log("API response:", data);
 
-      if (!res.ok) throw new Error(data?.error || "Server error");
+      // Parse response - handles multiple possible response formats
+      let cleanedText = "";
+      
+      // Try different response format parsers
+      if (data?.reply) {
+        cleanedText = data.reply;
+      } else if (data?.message) {
+        cleanedText = data.message;
+      } else if (data?.response) {
+        cleanedText = data.response;
+      } else if (data?.text) {
+        cleanedText = data.text;
+      } else if (data?.result) {
+        cleanedText = data.result;
+      } else if (data?.candidates?.[0]?.content?.parts) {
+        // Google Gemini format
+        cleanedText = data.candidates[0].content.parts.map((p) => p.text).join("\n");
+      } else if (typeof data === "string") {
+        cleanedText = data;
+      } else {
+        cleanedText = JSON.stringify(data);
+      }
 
-      // Extract clean text
-      const parts = data?.candidates?.[0]?.content?.parts;
-      const cleanedText = parts?.map((p) => p.text).join("\n") || "No response";
-
+      cleanedText = cleanedText || "No response received";
       updateHistory(cleanedText);
     } catch (err) {
-      updateHistory(err.message, true);
+      console.error("Chatbot error:", err);
+      updateHistory(`Error: ${err.message}`, true);
     }
   };
 

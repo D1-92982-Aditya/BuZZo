@@ -11,45 +11,35 @@ app.use(express.json());
 
 app.get("/api/health", (req, res) => res.json({ ok: true }));
 
-app.post("/api/gemini", async (req, res) => {
+// Proxy to external REST API (restchat.onrender.com/ask)
+app.post("/api/ask", async (req, res) => {
   try {
     const { message } = req.body;
     if (!message) {
       return res.status(400).json({ error: "Missing message" });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      return res.status(500).json({ error: "Missing Gemini API key" });
-    }
+    const externalApiUrl = "https://restchat.onrender.com/ask";
+    console.log("Proxying request to:", externalApiUrl);
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-
-    const payload = {
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: message }],
-        },
-      ],
-    };
-
-    const response = await fetch(url, {
+    // External API expects "prompt" field, not "message"
+    const response = await fetch(externalApiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ prompt: message }), // Changed from "message" to "prompt"
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Gemini API error:", JSON.stringify(data, null, 2));
-      return res.status(500).json({ error: data });
+      console.error("External API error:", data);
+      return res.status(response.status).json({ error: data });
     }
 
+    console.log("External API success:", data);
     return res.status(200).json(data);
   } catch (err) {
-    console.error("SERVER ERROR:", err);
+    console.error("PROXY ERROR:", err);
     return res.status(500).json({ error: err.message });
   }
 });
