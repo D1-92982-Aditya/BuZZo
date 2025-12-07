@@ -7,33 +7,8 @@
   </p>
   
   <br/>
-<div align="center">
-  <svg width="600" height="200">
-    <!-- Road -->
-    <rect x="0" y="140" width="600" height="10" fill="#444" />
-    
-    <!-- Bus -->
-    <g>
-      <rect x="10" y="90" width="120" height="40" rx="5" fill="#ffcc00">
-        <animate attributeName="x" from="-150" to="650" dur="5s" repeatCount="indefinite" />
-      </rect>
+  
 
-      <!-- Windows -->
-      <rect x="20" y="95" width="20" height="20" fill="#ffffff" />
-      <rect x="45" y="95" width="20" height="20" fill="#ffffff" />
-      <rect x="70" y="95" width="20" height="20" fill="#ffffff" />
-      <rect x="95" y="95" width="20" height="20" fill="#ffffff" />
-
-      <!-- Wheels -->
-      <circle cx="35" cy="135" r="10" fill="black">
-        <animate attributeName="cx" from="-150" to="650" dur="5s" repeatCount="indefinite" />
-      </circle>
-      <circle cx="95" cy="135" r="10" fill="black">
-        <animate attributeName="cx" from="-150" to="650" dur="5s" repeatCount="indefinite" />
-      </circle>
-    </g>
-  </svg>
-</div>
 
   <!-- Badges -->
   <img src="https://img.shields.io/badge/Backend-SpringBoot-green?style=for-the-badge" />
