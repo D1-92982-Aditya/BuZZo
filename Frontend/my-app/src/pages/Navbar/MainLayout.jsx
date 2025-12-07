@@ -1,17 +1,21 @@
 // src/layout/MainLayout.jsx
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import TopNav from "./Navbar";
 import Chatbot from "../Chatbot/Chatbot";
 
 const MainLayout = () => {
+  const location = useLocation();
+  const hideChatbotPages = ["/payment"];
+  const showChatbot = !hideChatbotPages.includes(location.pathname);
+
   return (
     <>
       <TopNav />
       <div className="container mt-4">
         <Outlet />
       </div>
-      <Chatbot />
+      {showChatbot && <Chatbot />}
     </>
   );
 };
