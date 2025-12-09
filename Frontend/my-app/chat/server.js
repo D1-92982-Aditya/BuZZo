@@ -19,7 +19,7 @@ app.post("/api/ask", async (req, res) => {
       return res.status(400).json({ error: "Missing message" });
     }
 
-    const externalApiUrl = "https://restchat.onrender.com/ask";
+    const externalApiUrl = "https://chat-restapi.onrender.com/ask";
     console.log("Proxying request to:", externalApiUrl);
 
     // External API expects "prompt" field, not "message"
