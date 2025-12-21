@@ -21,4 +21,10 @@ public class BusServiceImpl implements BusService {
     public List<Bus> findBusescitytocity(String from, String to) {
         return busRepository.findByFromCityAndToCity(from, to);
     }
+    @Override
+    public List<Bus> Allbus() {
+    	// TODO Auto-generated method stub
+    	List<Bus> buses = busRepository.findAll();
+    	return buses;
+    }
 }
