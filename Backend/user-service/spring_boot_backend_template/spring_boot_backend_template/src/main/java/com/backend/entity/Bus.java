@@ -1,5 +1,7 @@
 package com.backend.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +18,8 @@ public class Bus {
 
     private String busName;
     private String busType;
-
+ 
+    private LocalDate availDate;
     private String fromCity;
     private String toCity;
 
