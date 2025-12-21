@@ -25,9 +25,7 @@ public class BusController {
         return ResponseEntity.ok(buses);
     }
     @GetMapping("/allbuses")
-    public ResponseEntity<?> AllgetBus(
-            @RequestParam String from,
-            @RequestParam String to) {
+    public ResponseEntity<?> AllgetBus() {
 
         List<Bus> buses = busService.Allbus();
         System.out.println(buses);
