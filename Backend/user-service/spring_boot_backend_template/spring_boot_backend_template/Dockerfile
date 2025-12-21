@@ -1,13 +1,13 @@
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
 COPY . .
 
-# ✅ FIX: give execute permission to mvnw
+# give execute permission to mvnw
 RUN chmod +x mvnw
 
-# build the jar
+# build jar using Java 21
 RUN ./mvnw clean package -DskipTests
 
 EXPOSE 8080
