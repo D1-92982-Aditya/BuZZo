@@ -6,25 +6,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @Entity
-@Table(name = "seats")
+@Table(name = "dropping_points")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Seat {
+public class DroppingPoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String seatNumber;   // 1A, 1B, 2A, 2B
+    private String locationName;   // Andheri, Dadar, Borivali
+
+    @Column(nullable = false)
+    private LocalTime droppingTime;
 
     @ManyToOne
-    @JoinColumn(name = "bus_id", nullable = false)
-    private Bus bus;
+    @JoinColumn(name = "schedule_id", nullable = false)
+    private BusSchedule busSchedule;
 }
-
-
-

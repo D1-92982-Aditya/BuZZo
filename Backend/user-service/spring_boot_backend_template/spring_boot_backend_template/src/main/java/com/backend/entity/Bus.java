@@ -1,13 +1,15 @@
 package com.backend.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "buses")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bus {
@@ -16,14 +18,15 @@ public class Bus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String busName;
-    private String busType;
- 
-    private LocalDate availDate;
-    private String fromCity;
-    private String toCity;
+    @Column(nullable = false)
+    private String busName;     // Volvo, Neeta
 
-    private String departureTime;
-    private double ticketPrice;
-    private int totalSeats;
+    @Column(nullable = false, unique = true)
+    private String busNumber;   // MH12AB1234
+
+    @Column(nullable = false)
+    private String busType;     // AC, NON_AC, SLEEPER
+
+    @Column(nullable = false)
+    private int totalSeats;     // 40, 45
 }
