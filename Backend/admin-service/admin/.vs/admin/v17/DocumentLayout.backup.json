@@ -1,0 +1,228 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\migrations\\20251231125136_baselineexistingtables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\migrations\\20251231125136_baselineexistingtables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\models\\boardingpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\models\\boardingpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\models\\droppingpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\models\\droppingpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\migrations\\20251231123419_busschedulebaseline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\migrations\\20251231123419_busschedulebaseline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\migrations\\20251231120805_createbustablev2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\migrations\\20251231120805_createbustablev2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\models\\bus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\models\\bus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\models\\busschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\models\\busschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\controllers\\buscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\controllers\\buscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|c:\\users\\abhay\\onedrive\\desktop\\buzzo\\buzzo\\backend\\admin-service\\admin\\admin-service\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E1271D26-C0F7-42BE-81A9-3A0A4A9E77E1}|admin-service\\admin-service.csproj|solutionrelative:admin-service\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20251231125136_BaselineExistingTables.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Migrations\\20251231125136_BaselineExistingTables.cs",
+              "RelativeDocumentMoniker": "admin-service\\Migrations\\20251231125136_BaselineExistingTables.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Migrations\\20251231125136_BaselineExistingTables.cs",
+              "RelativeToolTip": "admin-service\\Migrations\\20251231125136_BaselineExistingTables.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T12:51:36.346Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BoardingPoint.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Models\\BoardingPoint.cs",
+              "RelativeDocumentMoniker": "admin-service\\Models\\BoardingPoint.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Models\\BoardingPoint.cs",
+              "RelativeToolTip": "admin-service\\Models\\BoardingPoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T12:48:00.694Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AppDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "admin-service\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeToolTip": "admin-service\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T12:43:08.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DroppingPoint.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Models\\DroppingPoint.cs",
+              "RelativeDocumentMoniker": "admin-service\\Models\\DroppingPoint.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Models\\DroppingPoint.cs",
+              "RelativeToolTip": "admin-service\\Models\\DroppingPoint.cs",
+              "ViewState": "AgIAAA8AAACALPc0wnITwBoAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T12:37:26.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "20251231123419_BusScheduleBaseline.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Migrations\\20251231123419_BusScheduleBaseline.cs",
+              "RelativeDocumentMoniker": "admin-service\\Migrations\\20251231123419_BusScheduleBaseline.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Migrations\\20251231123419_BusScheduleBaseline.cs",
+              "RelativeToolTip": "admin-service\\Migrations\\20251231123419_BusScheduleBaseline.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T12:34:19.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BusSchedule.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Models\\BusSchedule.cs",
+              "RelativeDocumentMoniker": "admin-service\\Models\\BusSchedule.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Models\\BusSchedule.cs",
+              "RelativeToolTip": "admin-service\\Models\\BusSchedule.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAwC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T12:19:49.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20251231120805_CreateBusTableV2.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Migrations\\20251231120805_CreateBusTableV2.cs",
+              "RelativeDocumentMoniker": "admin-service\\Migrations\\20251231120805_CreateBusTableV2.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Migrations\\20251231120805_CreateBusTableV2.cs",
+              "RelativeToolTip": "admin-service\\Migrations\\20251231120805_CreateBusTableV2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T12:08:06.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Bus.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Models\\Bus.cs",
+              "RelativeDocumentMoniker": "admin-service\\Models\\Bus.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Models\\Bus.cs",
+              "RelativeToolTip": "admin-service\\Models\\Bus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T10:54:56.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BusController.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Controllers\\BusController.cs",
+              "RelativeDocumentMoniker": "admin-service\\Controllers\\BusController.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Controllers\\BusController.cs",
+              "RelativeToolTip": "admin-service\\Controllers\\BusController.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAmwFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T11:11:39.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "admin-service\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "admin-service\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA4wC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T10:59:18.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\appsettings.json",
+              "RelativeDocumentMoniker": "admin-service\\appsettings.json",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\appsettings.json",
+              "RelativeToolTip": "admin-service\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-31T10:33:03.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Program.cs",
+              "RelativeDocumentMoniker": "admin-service\\Program.cs",
+              "ToolTip": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\Program.cs",
+              "RelativeToolTip": "admin-service\\Program.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAIwCEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T10:31:56.194Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
