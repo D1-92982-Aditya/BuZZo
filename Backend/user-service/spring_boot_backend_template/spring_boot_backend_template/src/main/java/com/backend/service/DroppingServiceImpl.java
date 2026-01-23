@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+
 public class DroppingServiceImpl implements DroppingService {
 
 	private final DroppingPointRepository droppingPointRepository;

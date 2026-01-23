@@ -14,7 +14,7 @@ import com.backend.service.BusSearchService;
 import lombok.*;
 
 @RestController
-@RequestMapping("/buses")
+@RequestMapping("/buses/schedules")
 @RequiredArgsConstructor
 public class BusSearchController {
 	
@@ -38,7 +38,18 @@ public class BusSearchController {
 	    
 	    
 	    
-	   
+	    @GetMapping("/search-bus")
+	    public ResponseEntity<?> searchSchedules(
+	            @RequestParam String fromCity,
+	            @RequestParam String toCity,
+	            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	                    LocalDate journeyDate) {
+
+	        return ResponseEntity.ok(
+	                searchService.searchSchedules(fromCity, toCity, journeyDate)
+	        );
+	    }
+
 
 	    @GetMapping("/fetch")
 	    public ResponseEntity<?> getBuses(

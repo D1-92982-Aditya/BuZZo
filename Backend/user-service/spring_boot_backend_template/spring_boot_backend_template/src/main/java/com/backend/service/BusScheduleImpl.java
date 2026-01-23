@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -89,4 +90,27 @@ public class BusScheduleImpl implements BusScheduleService {
 
         return schedule;
     }
+
+	@Override
+	public List<BusSchedule> searchSchedules(String fromCity, String toCity, String journeyDate) {
+	    // Convert journeyDate from String to LocalDate
+	    LocalDate date;
+	    try {
+	        date = LocalDate.parse(journeyDate); // expects yyyy-MM-dd
+	    } catch (Exception e) {
+	        throw new IllegalArgumentException("Invalid date format. Use yyyy-MM-dd");
+	    }
+
+	    // Query repository for matching schedules
+	    List<BusSchedule> schedules = scheduleRepo.findByFromCityAndToCityAndJourneyDate(fromCity, toCity, date);
+
+	    // Force load boarding & dropping points (if LAZY)
+	    schedules.forEach(bus -> {
+	        if (bus.getBoardingPoints() != null) bus.getBoardingPoints().size();
+	        if (bus.getDroppingPoints() != null) bus.getDroppingPoints().size();
+	    });
+
+	    return schedules;
+	}
+
 }

@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "bus_schedules")
@@ -42,4 +45,15 @@ public class BusSchedule {
     @ManyToOne
     @JoinColumn(name = "bus_id", nullable = false)
     private Bus bus;
+    
+    
+ // ONE BUS SCHEDULE can have MANY boarding points
+    @OneToMany(mappedBy = "busSchedule", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<BoardingPoint> boardingPoints;
+
+    // ONE BUS SCHEDULE can have MANY dropping points
+    @OneToMany(mappedBy = "busSchedule", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<DroppingPoint> droppingPoints;
 }

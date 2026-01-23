@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "boarding_points")
 @Getter
@@ -27,6 +29,7 @@ public class BoardingPoint {
     private LocalTime boardingTime;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "schedule_id", nullable = false)
     private BusSchedule busSchedule;
 }

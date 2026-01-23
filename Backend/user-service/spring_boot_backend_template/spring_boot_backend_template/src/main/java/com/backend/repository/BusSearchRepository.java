@@ -24,4 +24,6 @@ public interface BusSearchRepository extends JpaRepository<BusSchedule, Long> {
 	        @Param("journeyDate") LocalDate journeyDate
 	    );
 
+	List<BusSchedule> findByFromCityAndToCityAndJourneyDate(String fromCity, String toCity, LocalDate journeyDate);
+
 }
