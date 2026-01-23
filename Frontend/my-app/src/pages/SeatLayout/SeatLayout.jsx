@@ -1,110 +1,139 @@
-import React from 'react';
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-// ⭐ CHANGED: Import useBus to access global seats
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useBus } from "../BusContext/BusContext";
 
-export default function SeatLayout({ bookedSeats }) {
-
+export default function SeatLayout() {
   const navigate = useNavigate();
-  const { selectedBus } = useBus(); // ✅ make sure context is used here
+  const location = useLocation();
 
+  const {
+    selectedBus,
+    selectedSeats,
+    setSelectedSeats,
+    setSelectedBus
+  } = useBus();
+
+  const [bookedSeats, setBookedSeats] = useState([]);
+  const [totalSeats, setTotalSeats] = useState(0);
+
+  /* =======================
+     DB → UI seat mapping
+     ======================= */
+  const mapDbSeatToReactSeat = (seatNumber) => {
+    const seatNum = parseInt(seatNumber, 10);
+    if (isNaN(seatNum)) return null;
+
+    const row = Math.ceil(seatNum / 6);
+    const colIndex = (seatNum - 1) % 6;
+    const cols = ["A", "B", "C", "D", "E", "F"];
+
+    return `${row}${cols[colIndex]}`;
+  };
+
+  /* =======================
+     Restore bus on refresh
+     ======================= */
   useEffect(() => {
-    // Run after component mounts
     if (!selectedBus) {
-      navigate("/select-bus"); // redirect to Select Bus page
+      if (location.state?.selectedBus) {
+        setSelectedBus(location.state.selectedBus);
+      } else {
+        navigate("/select-bus");
+      }
     }
-  }, [selectedBus, navigate]);
+  }, [selectedBus, location.state, navigate, setSelectedBus]);
 
-  if (!selectedBus) return <p>Redirecting to bus selection...</p>;
+  /* =======================
+     Fetch seats from backend
+     ======================= */
+  useEffect(() => {
+    if (!selectedBus?.scheduleId) return;
 
-  // ⭐ CHANGED: Get selectedSeats + setSelectedSeats from context instead of props
-  const { selectedSeats, setSelectedSeats } = useBus();
+    fetch(`http://localhost:8080/buses/seats/${selectedBus.scheduleId}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log("API seats:", data);
 
-  const toggleSeat = (seatNumber) => {
-    if (bookedSeats.includes(seatNumber)) return;
+        setTotalSeats(data.length);
 
-    setSelectedSeats((prev) =>
-      prev.includes(seatNumber)
-        ? prev.filter((s) => s !== seatNumber)
-        : [...prev, seatNumber]
+        const booked = data
+          .filter(seat => seat.booked === true)
+          .map(seat => mapDbSeatToReactSeat(seat.seatNumber))
+          .filter(Boolean);
+
+        setBookedSeats(booked);
+      })
+      .catch(err => console.error("Seat fetch error:", err));
+  }, [selectedBus]);
+
+  if (!selectedBus) return <p>Redirecting...</p>;
+
+  /* =======================
+     Seat interaction logic
+     ======================= */
+  const toggleSeat = (seat) => {
+    if (bookedSeats.includes(seat)) return;
+
+    setSelectedSeats(prev =>
+      prev.includes(seat)
+        ? prev.filter(s => s !== seat)
+        : [...prev, seat]
     );
   };
 
-  const getSeatClass = (seatNumber) => {
-    if (bookedSeats.includes(seatNumber)) return 'seat booked';
-    if (selectedSeats.includes(seatNumber)) return 'seat selected';
-    return 'seat available';
+  const getSeatClass = (seat) => {
+    if (bookedSeats.includes(seat)) return "seat booked";
+    if (selectedSeats.includes(seat)) return "seat selected";
+    return "seat available";
   };
 
   const Seat = ({ number }) => (
-    <div
-      className={getSeatClass(number)}
-      data-seat={number}
-      onClick={() => toggleSeat(number)}
-    >
+    <div className={getSeatClass(number)} onClick={() => toggleSeat(number)}>
       <span className="seat-number">{number}</span>
     </div>
   );
 
   const EmptySeat = () => <div className="seat empty" />;
 
+  /* =======================
+     SAME UI, dynamic rows
+     ======================= */
+  const seatsPerRow = 6;
+  const rows = Math.ceil(totalSeats / seatsPerRow);
+  const deckRows = [];
+
+  for (let r = 1; r <= rows; r++) {
+    deckRows.push(
+      <div className="seat-row" key={r}>
+        <Seat number={`${r}A`} />
+        <Seat number={`${r}B`} />
+        <Seat number={`${r}C`} />
+        <EmptySeat />
+        <Seat number={`${r}D`} />
+        <Seat number={`${r}E`} />
+        <Seat number={`${r}F`} />
+      </div>
+    );
+  }
+
+  /* =======================
+     JSX
+     ======================= */
   return (
-    <> 
+    <>
+      <div style={{ marginBottom: "20px", color: "#fff" }}>
+        <h2>{selectedBus.busName} ({selectedBus.busType})</h2>
+        <p>
+          From: {selectedBus.fromCity} → {selectedBus.toCity}<br />
+          Date: {selectedBus.journeyDate}<br />
+          Departure: {selectedBus.departureTime} | Arrival: {selectedBus.arrivalTime}
+        </p>
+      </div>
+
       <div className="bus-layout">
-        <div className="driver-cabin"></div>
+        <div className="driver-cabin" />
+        <div className="deck-container">{deckRows}</div>
 
-        <div className="deck-container">
-
-          {/* Upper Deck */}
-          <div>
-            <div className="seat-row">
-              <Seat number="1A" />
-              <Seat number="1B" />
-              <EmptySeat />
-              <Seat number="1C" />
-              <Seat number="1D" />
-              <Seat number="1E" />
-              <Seat number="1F" />
-            </div>
-
-            <div className="seat-row">
-              <Seat number="2A" />
-              <Seat number="2B" />
-              <EmptySeat />
-              <Seat number="2C" />
-              <Seat number="2D" />
-              <Seat number="2E" />
-              <Seat number="2F" />
-            </div>
-          </div>
-
-          {/* Lower Deck */}
-          <div>
-            <div className="seat-row">
-              <Seat number="3A" />
-              <Seat number="3B" />
-              <EmptySeat />
-              <Seat number="3C" />
-              <Seat number="3D" />
-              <Seat number="3E" />
-              <Seat number="3F" />
-            </div>
-
-            <div className="seat-row">
-              <Seat number="4A" />
-              <Seat number="4B" />
-              <EmptySeat />
-              <Seat number="4C" />
-              <Seat number="4D" />
-              <Seat number="4E" />
-              <Seat number="4F" />
-            </div>
-          </div>
-        </div>
-
-        {/* Legend */}
         <div className="legend">
           <div className="legend-item">
             <div className="legend-box legend-available"></div>
@@ -114,8 +143,11 @@ export default function SeatLayout({ bookedSeats }) {
             <div className="legend-box legend-booked"></div>
             <span>Booked</span>
           </div>
+          <div className="legend-item">
+            <div className="legend-box legend-selected"></div>
+            <span>Selected</span>
+          </div>
         </div>
-
       </div>
     </>
   );

@@ -14,10 +14,7 @@ const seatPrice = selectedBus?.discountPrice || 400; // fallback if not set
 return (
 <> <div className="main-container"> <div className="p-4"> <div className="row">
 {/* Left: Seat Selection */} <div className="col-left"> <div className="content-area">
-{selectedBus && (
-<> <h2 className="bus-title">{selectedBus.name} | {selectedBus.type}</h2> <p className="bus-subtitle">{selectedBus.time} from {selectedBus.from}</p>
-</>
-)} <SeatLayout bookedSeats={bookedSeats} /> </div> </div>
+ <SeatLayout bookedSeats={bookedSeats} /> </div> </div>
 
 ```
         {/* Right: Booking Summary */}

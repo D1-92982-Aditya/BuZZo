@@ -1,31 +1,9 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
-const BoardingDroppingModal = ({ onClose }) => {
-  const location = useLocation();
-  const { fromCity, toCity } = location.state || {};
+const BoardingDroppingModal = ({ onClose, schedule }) => {
+  if (!schedule) return null;
 
-  const routePoints = {
-    "Pune-Mumbai": {
-      boarding: ["Shivaji Nagar", "Kothrud", "Wakad", "Swargate"],
-      dropping: ["Bandra", "Andheri", "Borivali", "Thane"],
-    },
-    "Mumbai-Goa": {
-      boarding: ["Borivali", "Dadar", "Bandra"],
-      dropping: ["Mapusa", "Panaji", "Margao"],
-    },
-    "Delhi-Agra": {
-      boarding: ["Kashmere Gate", "Sarojini Nagar"],
-      dropping: ["Agra Fort", "Sikandra"],
-    },
-    "Chennai-Bangalore": {
-      boarding: ["T. Nagar", "Guindy", "CMBT"],
-      dropping: ["Silk Board", "Majestic", "Hebbal"],
-    },
-  };
-
-  const routeKey = `${fromCity}-${toCity}`;
-  const currentRoute = routePoints[routeKey] || { boarding: [], dropping: [] };
+  const { boardingPoints = [], droppingPoints = [] } = schedule;
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -55,11 +33,9 @@ const BoardingDroppingModal = ({ onClose }) => {
           boxShadow: "0 8px 25px rgba(0,0,0,0.3)",
           overflowY: "auto",
           maxHeight: "85vh",
-          animation: "fadeIn 0.25s ease-in-out",
           position: "relative",
         }}
       >
-        {/* Close Button */}
         <button
           onClick={onClose}
           style={{
@@ -76,17 +52,12 @@ const BoardingDroppingModal = ({ onClose }) => {
           ✕
         </button>
 
-        {/* Title */}
         <h3
           style={{
             color: "#1e40af",
             fontWeight: "600",
             textAlign: "center",
             marginBottom: "20px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "8px",
           }}
         >
           🚌 Select Boarding & Dropping Points
@@ -94,22 +65,11 @@ const BoardingDroppingModal = ({ onClose }) => {
 
         {/* Boarding Points */}
         <div style={{ marginBottom: "20px" }}>
-          <h4
-            style={{
-              color: "#0f172a",
-              marginBottom: "10px",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-            }}
-          >
-            🚏 Boarding Points
-          </h4>
-          {currentRoute.boarding.length > 0 ? (
-            currentRoute.boarding.map((point, i) => (
+          <h4 style={{ marginBottom: "10px" }}>🚏 Boarding Points</h4>
+          {boardingPoints.length > 0 ? (
+            boardingPoints.map((point) => (
               <label
-                key={i}
-                htmlFor={`boarding-${i}`}
+                key={point.id}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -118,51 +78,26 @@ const BoardingDroppingModal = ({ onClose }) => {
                   borderRadius: "8px",
                   padding: "8px 10px",
                   marginBottom: "8px",
-                  cursor: "pointer",
-                  transition: "0.2s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#f8fafc")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#fff")
-                }
               >
-                <input
-                  type="checkbox"
-                  id={`boarding-${i}`}
-                  style={{
-                    width: "18px",
-                    height: "18px",
-                    accentColor: "#2563eb",
-                  }}
-                />
-                <span style={{ fontSize: "15px", color: "#334155" }}>{point}</span>
+                <input type="checkbox" />
+                <span>
+                  {point.locationName} ({point.boardingTime})
+                </span>
               </label>
             ))
           ) : (
-            <p style={{ fontSize: "14px", color: "#6b7280" }}>No boarding points found.</p>
+            <p>No boarding points found.</p>
           )}
         </div>
 
         {/* Dropping Points */}
         <div style={{ marginBottom: "25px" }}>
-          <h4
-            style={{
-              color: "#0f172a",
-              marginBottom: "10px",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-            }}
-          >
-            📍 Dropping Points
-          </h4>
-          {currentRoute.dropping.length > 0 ? (
-            currentRoute.dropping.map((point, i) => (
+          <h4 style={{ marginBottom: "10px" }}>📍 Dropping Points</h4>
+          {droppingPoints.length > 0 ? (
+            droppingPoints.map((point) => (
               <label
-                key={i}
-                htmlFor={`dropping-${i}`}
+                key={point.id}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -171,34 +106,19 @@ const BoardingDroppingModal = ({ onClose }) => {
                   borderRadius: "8px",
                   padding: "8px 10px",
                   marginBottom: "8px",
-                  cursor: "pointer",
-                  transition: "0.2s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#f8fafc")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#fff")
-                }
               >
-                <input
-                  type="checkbox"
-                  id={`dropping-${i}`}
-                  style={{
-                    width: "18px",
-                    height: "18px",
-                    accentColor: "#2563eb",
-                  }}
-                />
-                <span style={{ fontSize: "15px", color: "#334155" }}>{point}</span>
+                <input type="checkbox" />
+                <span>
+                  {point.locationName} ({point.droppingTime})
+                </span>
               </label>
             ))
           ) : (
-            <p style={{ fontSize: "14px", color: "#6b7280" }}>No dropping points found.</p>
+            <p>No dropping points found.</p>
           )}
         </div>
 
-        {/* Save Button */}
         <button
           onClick={onClose}
           style={{
@@ -209,9 +129,7 @@ const BoardingDroppingModal = ({ onClose }) => {
             padding: "12px 0",
             borderRadius: "8px",
             fontWeight: "600",
-            fontSize: "15px",
             cursor: "pointer",
-            letterSpacing: "0.3px",
           }}
         >
           Save

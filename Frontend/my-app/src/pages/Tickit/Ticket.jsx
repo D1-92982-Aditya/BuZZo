@@ -11,7 +11,11 @@ const Ticket = () => {
   const [showQR, setShowQR] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { selectedBus, selectedSeats } = useBus(); // ✅ access global state
+  const { selectedBus, selectedSeats, paymentInfo } = useBus();
+  const passengers = paymentInfo?.passengers || [];
+  const totalAmount = paymentInfo?.total ?? 0;
+
+// ✅ access global state
 
   if (!selectedBus) {
     return (
@@ -30,14 +34,15 @@ const Ticket = () => {
   const ticketData = {
     busName: selectedBus.name,
     type: selectedBus.type,
-    date: selectedBus.time,
-    from: selectedBus.from,
-    to: "Pune Station",
+    
+    from: selectedBus.fromCity,
+    to: selectedBus.toCity,
+    date: selectedBus.journeyDate,
     seat: selectedSeats?.join(", ") || "04",
-    deck: "UPPER DECK",
-    total: `₹${selectedBus.discountPrice}`,
+    
+    total: `₹${totalAmount}`,
   };
-
+console.log(selectedBus)
   const uploadTicketToCloudinary = async () => {
     if (cloudURL) return;
 
@@ -154,16 +159,23 @@ const Ticket = () => {
           <p style={{ color: "#666", margin: "0 0 4px 0", fontSize: "14px" }}>
             {ticketData.type}
           </p>
-          <p style={{ color: "#666", margin: "0 0 8px 0", fontSize: "14px" }}>
-            {ticketData.date}
-          </p>
+          
         </div>
 
         {/* Passenger + Route Info */}
         <div style={{ marginBottom: "15px" }}>
-          <p style={{ margin: "4px 0", fontSize: "15px", fontWeight: "bold" }}>
-            Passenger: {ticketData.passengerName || "Vaishnavi"}
-          </p>
+          <div style={{ marginBottom: "10px" }}>
+  <p style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "6px" }}>
+    Passenger(s):
+  </p>
+
+  <p>
+  <strong>Name(s):</strong>{" "}
+  {passengers?.length
+    ? passengers.map(p => p.name).filter(Boolean).join(", ")
+    : "—"}
+</p>
+</div>
           <p style={{ margin: "4px 0", fontSize: "14px" }}>
             Booking ID: <strong>{bookingId}</strong>
           </p>
@@ -171,8 +183,11 @@ const Ticket = () => {
             From: <strong>{ticketData.from}</strong> → To:{" "}
             <strong>{ticketData.to}</strong>
           </p>
+          <p style={{ color: "#666", margin: "0 0 8px 0", fontSize: "14px" }}>
+            Date:{ticketData.date}
+          </p>
           <p style={{ margin: "4px 0", fontSize: "14px" }}>
-            Seat: <strong>{ticketData.seat}</strong> ({ticketData.deck})
+            Seat: <strong>{ticketData.seat}</strong> 
           </p>
         </div>
 
