@@ -17,20 +17,6 @@ export default function SeatLayout() {
   const [totalSeats, setTotalSeats] = useState(0);
 
   /* =======================
-     DB → UI seat mapping
-     ======================= */
-  const mapDbSeatToReactSeat = (seatNumber) => {
-    const seatNum = parseInt(seatNumber, 10);
-    if (isNaN(seatNum)) return null;
-
-    const row = Math.ceil(seatNum / 6);
-    const colIndex = (seatNum - 1) % 6;
-    const cols = ["A", "B", "C", "D", "E", "F"];
-
-    return `${row}${cols[colIndex]}`;
-  };
-
-  /* =======================
      Restore bus on refresh
      ======================= */
   useEffect(() => {
@@ -52,14 +38,11 @@ export default function SeatLayout() {
     fetch(`http://localhost:8080/buses/seats/${selectedBus.scheduleId}`)
       .then(res => res.json())
       .then(data => {
-        console.log("API seats:", data);
-
         setTotalSeats(data.length);
 
         const booked = data
           .filter(seat => seat.booked === true)
-          .map(seat => mapDbSeatToReactSeat(seat.seatNumber))
-          .filter(Boolean);
+          .map(seat => seat.seatNumber); // EXACT DB VALUE
 
         setBookedSeats(booked);
       })
@@ -96,9 +79,9 @@ export default function SeatLayout() {
   const EmptySeat = () => <div className="seat empty" />;
 
   /* =======================
-     SAME UI, dynamic rows
+     24 SEAT LAYOUT (6 x 4)
      ======================= */
-  const seatsPerRow = 6;
+  const seatsPerRow = 4; // ✅ DB MATCH
   const rows = Math.ceil(totalSeats / seatsPerRow);
   const deckRows = [];
 
@@ -107,11 +90,9 @@ export default function SeatLayout() {
       <div className="seat-row" key={r}>
         <Seat number={`${r}A`} />
         <Seat number={`${r}B`} />
-        <Seat number={`${r}C`} />
         <EmptySeat />
+        <Seat number={`${r}C`} />
         <Seat number={`${r}D`} />
-        <Seat number={`${r}E`} />
-        <Seat number={`${r}F`} />
       </div>
     );
   }

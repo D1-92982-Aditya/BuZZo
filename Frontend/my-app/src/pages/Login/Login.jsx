@@ -21,24 +21,35 @@ const Login = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleLogin = () => {
-    if (isAdminLogin) {
-      // ADMIN LOGIN FLOW
-      const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
-      const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
-
-      if (email === adminEmail && password === adminPassword) {
-        localStorage.setItem("isAdmin", "true");
-        navigate("/admin/login/dashboard");
-      } else {
-        alert("Invalid admin credentials");
+  const handleLogin = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          email: email,
+          password: password
+        })
+      });
+  
+      if (!res.ok) {
+        throw new Error("Invalid credentials");
       }
-    } else {
-      // USER LOGIN FLOW
+  
+      const data = await res.json();
+  
+      // ✅ store JWT
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("email", data.email);
+  
       navigate("/search");
-      console.log("User login:", { email, password });
+    } catch (err) {
+      alert("Login failed. Check email or password.");
     }
   };
+  
 
   const goToSignup = () => navigate("/sign-up");
   const goToForgot = () => navigate("/forget");
