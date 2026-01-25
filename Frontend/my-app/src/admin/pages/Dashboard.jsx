@@ -1,170 +1,149 @@
-import React, { useState /*, useEffect */ } from "react";
-import "./Dashboard.css";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import AddBus from "./buses/AddBus";
 import BusList from "./buses/BusList";
-import { useNavigate } from "react-router-dom";
 import BookingList from "./buses/BookingList";
-// import api from "./buses/api"; // uncomment when backend is ready
+import "./Dashboard.css";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   const [activeMenu, setActiveMenu] = useState("add-bus");
-  const [buses, setBuses] = useState([]);
   const [editingBus, setEditingBus] = useState(null);
+
+  const [buses, setBuses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const navigate=useNavigate();
 
-  const handleLogout=()=>{
+  /* ================== LOGOUT ================== */
+  const handleLogout = () => {
     navigate("/admin/login");
-  }
+  };
 
-  /* ========= AXIOS VERSION (for future) ========= */
+  /* ================== FETCH BUSES ================== */
+  const fetchBuses = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.get("/api/bus/scheduled");
 
-  // useEffect(() => {
-  //   fetchBuses();
-  // }, []);
+      // Normalize buses to always be an array
+      const busesArray = Array.isArray(res.data)
+        ? res.data
+        : res.data?.scheduledBuses || [];
 
-  // const fetchBuses = async () => {
-  //   try {
-  //     setLoading(true);
-  //     setError("");
-  //     const res = await api.get("/buses");
-  //     setBuses(res.data); // expect array of buses
-  //   } catch (err) {
-  //     console.error(err);
-  //     setError("Failed to load buses.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+      setBuses(busesArray);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load buses from server.");
+      setBuses([]); // ensure buses is always an array
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // const createBusOnServer = async (busData) => {
-  //   const res = await api.post("/buses", busData);
-  //   return res.data; // new bus with id
-  // };
+  useEffect(() => {
+    if (activeMenu === "buses-list") fetchBuses();
+  }, [activeMenu]);
 
-  // const updateBusOnServer = async (busData) => {
-  //   const res = await api.put(`/buses/${busData.id}`, busData);
-  //   return res.data;
-  // };
-
-  // const deleteBusOnServer = async (id) => {
-  //   await api.delete(`/buses/${id}`);
-  // };
-
-  /* ========= CURRENT LOCAL STATE VERSION ========= */
-
-  // ADD
+  /* ================== ADD BUS ================== */
   const handleAddBus = async (busData) => {
     try {
       setLoading(true);
       setError("");
 
-      // when backend ready:
-      // const savedBus = await createBusOnServer(busData);
-      // setBuses((prev) => [...prev, savedBus]);
-
-      // for now: local only
-      const newBus = { id: Date.now(), ...busData };
+      const res = await axios.post("/api/bus/full", busData);
+      const newBus = res.data;
       setBuses((prev) => [...prev, newBus]);
 
       setActiveMenu("buses-list");
       setEditingBus(null);
     } catch (err) {
       console.error(err);
-      setError("Failed to add bus (front-end).");
+      setError("Failed to add bus.");
     } finally {
       setLoading(false);
     }
   };
 
-  // UPDATE
-  const handleUpdateBus = async (updatedBus) => {
+  /* ================== UPDATE BUS ================== */
+  const handleUpdateBus = async (busData) => {
     try {
       setLoading(true);
       setError("");
 
-      // when backend ready:
-
-      // const savedBus = await updateBusOnServer(updatedBus);
-      // setBuses((prev) =>
-      //   prev.map((b) => (b.id === savedBus.id ? savedBus : b))
-      // );
-
-      // for now:
+      await axios.put(`/api/bus/${busData.busId}`, busData);
       setBuses((prev) =>
-        prev.map((b) => (b.id === updatedBus.id ? updatedBus : b))
+        prev.map((b) => (b.busId === busData.busId ? { ...b, ...busData } : b))
       );
 
       setActiveMenu("buses-list");
       setEditingBus(null);
     } catch (err) {
       console.error(err);
-      setError("Failed to update bus (front-end).");
+      setError("Failed to update bus.");
     } finally {
       setLoading(false);
     }
   };
 
-  // DELETE
-  const handleDeleteBus = async (id) => {
-    const ok = window.confirm("Delete this bus?");
-    if (!ok) return;
-
+  /* ================== DELETE BUS ================== */
+  const handleDeleteBus = async (busId) => {
+    if (!window.confirm("Delete this bus?")) return;
     try {
       setLoading(true);
       setError("");
 
-      // when backend ready:
-      // await deleteBusOnServer(id);
-
-      // local only:
-      setBuses((prev) => prev.filter((b) => b.id !== id));
+      await axios.delete(`/api/bus/${busId}`);
+      setBuses((prev) => prev.filter((b) => b.busId !== busId));
     } catch (err) {
       console.error(err);
-      setError("Failed to delete bus (front-end).");
+      setError("Failed to delete bus.");
     } finally {
       setLoading(false);
     }
   };
 
+  /* ================== EDIT CLICK ================== */
   const handleEditClick = (bus) => {
     setEditingBus(bus);
     setActiveMenu("add-bus");
   };
 
+  /* ================== RENDER CONTENT ================== */
   const renderContent = () => {
-    if (activeMenu === "add-bus") {
-      return (
-        <AddBus
-          mode={editingBus ? "edit" : "add"}
-          initialData={editingBus}
-          onSave={handleAddBus}
-          onUpdate={handleUpdateBus}
-          onCancelEdit={() => setEditingBus(null)}
-        />
-      );
-    }
+    switch (activeMenu) {
+      case "add-bus":
+        return (
+          <AddBus
+            mode={editingBus ? "edit" : "add"}
+            initialData={editingBus}
+            onSave={handleAddBus}
+            onUpdate={handleUpdateBus}
+            onCancelEdit={() => setEditingBus(null)}
+          />
+        );
 
-    if (activeMenu === "buses-list") {
-      return (
-        <BusList
-          buses={buses}
-          loading={loading}
-          error={error}
-          onEdit={handleEditClick}
-          onDelete={handleDeleteBus}
-          // onRefresh={fetchBuses} // backend
-          onRefresh={() => {}} // dummy now
-        />
-      );
-    }
+      case "buses-list":
+        return (
+          <BusList
+            buses={buses}
+            loading={loading}
+            error={error}
+            onEdit={handleEditClick}
+            onDelete={handleDeleteBus}
+            onRefresh={fetchBuses}
+          />
+        );
 
-    if (activeMenu === "bookings") {
-      return <BookingList />; // 🔥 NEW
-    }
+      case "bookings":
+        return <BookingList />;
 
-    return <p>Select a menu option.</p>;
+      default:
+        return <p>Select a menu option.</p>;
+    }
   };
 
   return (
@@ -178,9 +157,7 @@ const Dashboard = () => {
         <ul className="nav">
           <li>
             <button
-              className={
-                activeMenu === "add-bus" ? "nav-link active" : "nav-link"
-              }
+              className={activeMenu === "add-bus" ? "nav-link active" : "nav-link"}
               onClick={() => setActiveMenu("add-bus")}
             >
               {editingBus ? "Edit Bus" : "Add Bus"}
@@ -188,15 +165,13 @@ const Dashboard = () => {
           </li>
           <li>
             <button
-              className={
-                activeMenu === "buses-list" ? "nav-link active" : "nav-link"
-              }
+              className={activeMenu === "buses-list" ? "nav-link active" : "nav-link"}
               onClick={() => setActiveMenu("buses-list")}
             >
               Buses List
             </button>
           </li>
-           <li>
+          <li>
             <button
               className={activeMenu === "bookings" ? "nav-link active" : "nav-link"}
               onClick={() => setActiveMenu("bookings")}
@@ -211,7 +186,9 @@ const Dashboard = () => {
       <div className="main">
         <header className="topbar">
           <span>Hi! Admin</span>
-          <button className="logout-btn" onClick={handleLogout} >Logout</button>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
         </header>
         <main className="content">
           {error && (
@@ -236,4 +213,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

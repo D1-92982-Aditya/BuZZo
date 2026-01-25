@@ -1,155 +1,276 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./AddBus.css";
 
-const AddBus = () => {
-  const [form, setForm] = useState({
+const API = "https://localhost:7101/api";
+
+export default function AddBus() {
+  const [activeTab, setActiveTab] = useState("bus");
+
+  const [busId, setBusId] = useState("");
+  const [scheduleId, setScheduleId] = useState("");
+  const [buses, setBuses] = useState([]);
+
+  /* ---------------- BUS ---------------- */
+  const [bus, setBus] = useState({
     busName: "",
     busNumber: "",
-    from: "",
-    to: "",
-    totalSeats: "",
-    price: "",
-    departureTime: "",
-    arrivalTime: "",
     busType: "",
-    journeyDate: "",
+    totalSeats: ""
   });
 
-  const [points, setPoints] = useState([]);
-  const [pointInput, setPointInput] = useState("");
+  /* ---------------- SCHEDULE ---------------- */
+  const [schedule, setSchedule] = useState({
+    fromCity: "",
+    toCity: "",
+    journeyDate: "",
+    departureTime: "",
+    arrivalTime: "",
+    ticketPrice: ""
+  });
 
-  const addPoint = () => {
-    if (pointInput.trim() === "") return;
-    setPoints([...points, pointInput]);
-    setPointInput("");
+  /* ---------------- BOARDING / DROPPING ---------------- */
+  const [boardingPoints, setBoardingPoints] = useState([{ locationName: "", time: "" }]);
+  const [droppingPoints, setDroppingPoints] = useState([{ locationName: "", time: "" }]);
+
+  /* ---------------- LOAD BUSES ---------------- */
+  useEffect(() => {
+    fetchBuses();
+  }, []);
+
+  const fetchBuses = async () => {
+    try {
+      const res = await axios.get(`${API}/bus`);
+      setBuses(res.data);
+    } catch (err) {
+      console.error("Error fetching buses:", err);
+      alert("Failed to load buses");
+    }
   };
 
-  const removePoint = (i) => {
-    setPoints(points.filter((_, index) => index !== i));
+  /* ---------------- HANDLERS ---------------- */
+  const handleBusChange = (e) => setBus({ ...bus, [e.target.name]: e.target.value });
+  const handleScheduleChange = (e) => setSchedule({ ...schedule, [e.target.name]: e.target.value });
+
+  /* ---------------- API CALLS ---------------- */
+  const saveBus = async () => {
+    if (!bus.busName || !bus.busNumber) {
+      alert("Bus name and number are required");
+      return;
+    }
+
+    try {
+      const res = await axios.post(`${API}/bus`, {
+        ...bus,
+        totalSeats: Number(bus.totalSeats)
+      });
+
+      alert("Bus added successfully");
+      setBusId(res.data.id);
+      fetchBuses();
+      setBus({ busName: "", busNumber: "", busType: "", totalSeats: "" });
+    } catch (err) {
+      if (err.response) {
+        console.error("Bus save error:", err.response.data);
+        alert("Error saving bus: " + JSON.stringify(err.response.data.errors || err.response.data));
+      } else {
+        console.error(err);
+        alert("Unknown error occurred while saving bus");
+      }
+    }
   };
 
-  const handleSave = () => {
-    const busData = { ...form, intermediatePoints: points };
+  const saveSchedule = async () => {
+    if (!busId) {
+      alert("Please select a bus");
+      return;
+    }
 
-    console.log("Saving Bus:", busData);
-    alert("Bus saved successfully!");
+    const { fromCity, toCity, journeyDate, departureTime, arrivalTime, ticketPrice } = schedule;
+    if (!fromCity || !toCity || !journeyDate || !departureTime || !arrivalTime || !ticketPrice) {
+      alert("Please fill all schedule fields");
+      return;
+    }
 
-    // Call your backend API here
+    try {
+      const res = await axios.post(`${API}/bus/bus-schedule`, {
+        busId: Number(busId),
+        fromCity,
+        toCity,
+        journeyDate, // "YYYY-MM-DD" works for DateTime
+        departureTime: departureTime + ":00", // TimeSpan expects HH:mm:ss
+        arrivalTime: arrivalTime + ":00",
+        ticketPrice: Number(ticketPrice)
+      });
+
+      alert("Schedule added");
+      setScheduleId(res.data.id);
+      setSchedule({ fromCity: "", toCity: "", journeyDate: "", departureTime: "", arrivalTime: "", ticketPrice: "" });
+    } catch (err) {
+      if (err.response) {
+        console.error("Schedule save error:", err.response.data);
+        alert("Error saving schedule: " + JSON.stringify(err.response.data.errors || err.response.data));
+      } else {
+        console.error(err);
+        alert("Unknown error occurred while saving schedule");
+      }
+    }
   };
 
+  const saveBoarding = async () => {
+    if (!scheduleId) {
+      alert("Add schedule first");
+      return;
+    }
+
+    const payload = boardingPoints
+      .filter(p => p.locationName && p.time)
+      .map(p => ({ busScheduleId: scheduleId, locationName: p.locationName, boardingTime: p.time + ":00" }));
+
+    if (!payload.length) {
+      alert("No valid boarding points to save");
+      return;
+    }
+
+    try {
+      await axios.post(`${API}/bus/boardingpoints`, payload);
+      alert("Boarding points saved");
+      setBoardingPoints([{ locationName: "", time: "" }]);
+    } catch (err) {
+      if (err.response) {
+        console.error("Boarding save error:", err.response.data);
+        alert("Error saving boarding points: " + JSON.stringify(err.response.data.errors || err.response.data));
+      } else {
+        console.error(err);
+        alert("Unknown error occurred while saving boarding points");
+      }
+    }
+  };
+
+  const saveDropping = async () => {
+    if (!scheduleId) {
+      alert("Add schedule first");
+      return;
+    }
+
+    const payload = droppingPoints
+      .filter(p => p.locationName && p.time)
+      .map(p => ({ busScheduleId: scheduleId, locationName: p.locationName, droppingTime: p.time + ":00" }));
+
+    if (!payload.length) {
+      alert("No valid dropping points to save");
+      return;
+    }
+
+    try {
+      await axios.post(`${API}/bus/droppingpoints`, payload);
+      alert("Dropping points saved");
+      setDroppingPoints([{ locationName: "", time: "" }]);
+    } catch (err) {
+      if (err.response) {
+        console.error("Dropping save error:", err.response.data);
+        alert("Error saving dropping points: " + JSON.stringify(err.response.data.errors || err.response.data));
+      } else {
+        console.error(err);
+        alert("Unknown error occurred while saving dropping points");
+      }
+    }
+  };
+
+  /* ---------------- UI ---------------- */
   return (
-    <div className="add-container">
-      <h2 className="add-title">Add Bus</h2>
+    <div className="addbus-container">
+      <h2>Bus Management</h2>
 
-      <div className="form-grid">
-
-        <input
-          type="text"
-          placeholder="Bus Name"
-          value={form.busName}
-          onChange={(e) => setForm({ ...form, busName: e.target.value })}
-        />
-
-        <input
-          type="text"
-          placeholder="Bus Number"
-          value={form.busNumber}
-          onChange={(e) => setForm({ ...form, busNumber: e.target.value })}
-        />
-
-        <input
-          type="text"
-          placeholder="From"
-          value={form.from}
-          onChange={(e) => setForm({ ...form, from: e.target.value })}
-        />
-
-        <input
-          type="text"
-          placeholder="To"
-          value={form.to}
-          onChange={(e) => setForm({ ...form, to: e.target.value })}
-        />
-
-        <input
-          type="number"
-          placeholder="Total Seats"
-          value={form.totalSeats}
-          onChange={(e) => setForm({ ...form, totalSeats: e.target.value })}
-        />
-
-        <input
-          type="number"
-          placeholder="Ticket Price"
-          value={form.price}
-          onChange={(e) => setForm({ ...form, price: e.target.value })}
-        />
-
-        <input
-          type="date"
-          value={form.journeyDate}
-          onChange={(e) => setForm({ ...form, journeyDate: e.target.value })}
-        />
-
-        <input
-          type="time"
-          value={form.departureTime}
-          onChange={(e) =>
-            setForm({ ...form, departureTime: e.target.value })
-          }
-        />
-
-        <input
-          type="time"
-          value={form.arrivalTime}
-          onChange={(e) =>
-            setForm({ ...form, arrivalTime: e.target.value })
-          }
-        />
-
-        <select
-          value={form.busType}
-          onChange={(e) => setForm({ ...form, busType: e.target.value })}
-        >
-          <option value="">Select Bus Type</option>
-          <option value="AC">AC</option>
-          <option value="Non-AC">Non-AC</option>
-          <option value="Sleeper">Sleeper</option>
-          <option value="Seater">Seater</option>
-        </select>
-      </div>
-
-      {/* Intermediate Points */}
-      <h3 className="points-title">Intermediate Points</h3>
-
-      <div className="points-add">
-        <input
-          type="text"
-          placeholder="Add Point"
-          value={pointInput}
-          onChange={(e) => setPointInput(e.target.value)}
-        />
-        <button className="add-btn" onClick={addPoint}>+</button>
-      </div>
-
-      <ul className="points-list">
-        {points.map((p, i) => (
-          <li key={i}>
-            {p}
-            <button className="remove-point" onClick={() => removePoint(i)}>
-              X
-            </button>
-          </li>
+      <div className="tabs">
+        {["bus", "schedule", "boarding", "dropping"].map(tab => (
+          <button
+            key={tab}
+            className={activeTab === tab ? "active" : ""}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab.toUpperCase()}
+          </button>
         ))}
-      </ul>
+      </div>
 
-      {/* Save Button */}
-      <button className="save-btn" onClick={handleSave}>
-        Save Bus
-      </button>
+      {/* ---------------- BUS ---------------- */}
+      {activeTab === "bus" && (
+        <>
+          <input name="busName" placeholder="Bus Name" value={bus.busName} onChange={handleBusChange} />
+          <input name="busNumber" placeholder="Bus Number" value={bus.busNumber} onChange={handleBusChange} />
+          <input name="busType" placeholder="Bus Type" value={bus.busType} onChange={handleBusChange} />
+          <input name="totalSeats" type="number" placeholder="Total Seats" value={bus.totalSeats} onChange={handleBusChange} />
+          <button onClick={saveBus}>Save Bus</button>
+        </>
+      )}
+
+      {/* ---------------- SCHEDULE ---------------- */}
+      {activeTab === "schedule" && (
+        <>
+          <select value={busId} onChange={e => setBusId(e.target.value)}>
+            <option value="">Select Bus</option>
+            {buses.map(b => (
+              <option key={b.id} value={b.id}>
+                {b.busName} ({b.busNumber})
+              </option>
+            ))}
+          </select>
+
+          <input name="fromCity" placeholder="From City" value={schedule.fromCity} onChange={handleScheduleChange} />
+          <input name="toCity" placeholder="To City" value={schedule.toCity} onChange={handleScheduleChange} />
+          <input type="date" name="journeyDate" value={schedule.journeyDate} onChange={handleScheduleChange} />
+          <input type="time" name="departureTime" value={schedule.departureTime} onChange={handleScheduleChange} />
+          <input type="time" name="arrivalTime" value={schedule.arrivalTime} onChange={handleScheduleChange} />
+          <input type="number" name="ticketPrice" placeholder="Ticket Price" value={schedule.ticketPrice} onChange={handleScheduleChange} />
+
+          <button onClick={saveSchedule}>Save Schedule</button>
+        </>
+      )}
+
+      {/* ---------------- BOARDING ---------------- */}
+      {activeTab === "boarding" && (
+        <>
+          {boardingPoints.map((p, i) => (
+            <div key={i}>
+              <input placeholder="Location" value={p.locationName} onChange={e => {
+                const copy = [...boardingPoints];
+                copy[i].locationName = e.target.value;
+                setBoardingPoints(copy);
+              }} />
+              <input type="time" value={p.time} onChange={e => {
+                const copy = [...boardingPoints];
+                copy[i].time = e.target.value;
+                setBoardingPoints(copy);
+              }} />
+            </div>
+          ))}
+          <button onClick={() => setBoardingPoints([...boardingPoints, { locationName: "", time: "" }])}>+ Add</button>
+          <button onClick={saveBoarding}>Save Boarding</button>
+        </>
+      )}
+
+      {/* ---------------- DROPPING ---------------- */}
+      {activeTab === "dropping" && (
+        <>
+          {droppingPoints.map((p, i) => (
+            <div key={i}>
+              <input placeholder="Location" value={p.locationName} onChange={e => {
+                const copy = [...droppingPoints];
+                copy[i].locationName = e.target.value;
+                setDroppingPoints(copy);
+              }} />
+              <input type="time" value={p.time} onChange={e => {
+                const copy = [...droppingPoints];
+                copy[i].time = e.target.value;
+                setDroppingPoints(copy);
+              }} />
+            </div>
+          ))}
+          <button onClick={() => setDroppingPoints([...droppingPoints, { locationName: "", time: "" }])}>+ Add</button>
+          <button onClick={saveDropping}>Save Dropping</button>
+        </>
+      )}
     </div>
   );
-};
-
-export default AddBus;
-
+}

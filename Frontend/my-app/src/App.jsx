@@ -57,7 +57,8 @@ function App() {
         <Route path='/forget' element={<Forget/>}/>
         </Route>
         <Route>
-          <Route path='/admin/login/dashboard' element={<Dashboard/>}/>
+         <Route path='/admin/login/dashboard' element={<Dashboard/>}/>
+
         </Route>
 
         

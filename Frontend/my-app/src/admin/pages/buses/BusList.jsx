@@ -1,88 +1,141 @@
-import React from "react";
-import "./BusList.css";
-import { FaBus } from "react-icons/fa";
+import React, { useState } from "react";
+import axios from "axios";
 
-const BusList = ({ buses, loading, error, onEdit, onDelete, onRefresh }) => {
+const BusList = () => {
+  const [buses, setBuses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  // ✅ Fetch Scheduled Buses
+  const getBuses = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const res = await axios.get(
+        "https://localhost:7101/api/bus/scheduled"
+      );
+
+      console.log("API RESPONSE 👉", res.data);
+      setBuses(res.data);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch buses");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ❌ Cancel Bus Schedule
+  const cancelBus = async (id) => {
+    const confirmCancel = window.confirm(
+      "Are you sure you want to cancel this bus?"
+    );
+
+    if (!confirmCancel) return;
+
+    try {
+      await axios.delete(`https://localhost:7101/api/bus/cancel/${id}`)
+
+
+      alert("Bus cancelled successfully");
+
+      // 🔄 Refresh list
+      getBuses();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to cancel bus");
+    }
+  };
+
   return (
-    <div className="buslist-container">
-      <div className="buslist-header">
-        <h1 className="page-title">Buses List</h1>
-        <button
-          className="refresh-btn"
-          type="button"
-          onClick={onRefresh}
-          disabled={loading}
+    <div style={{ padding: "20px" }}>
+      <h2>🚌 Scheduled Bus List</h2>
+
+      {/* BUTTON */}
+      <button
+        onClick={getBuses}
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#2563eb",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+          marginBottom: "20px",
+        }}
+      >
+        Get Buses
+      </button>
+
+      {/* LOADING */}
+      {loading && <p>Loading buses...</p>}
+
+      {/* ERROR */}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {/* NO DATA */}
+      {!loading && buses.length === 0 && (
+        <p>No buses available</p>
+      )}
+
+      {/* TABLE */}
+      {buses.length > 0 && (
+        <table
+          border="1"
+          cellPadding="10"
+          cellSpacing="0"
+          width="100%"
         >
-          {loading ? "Refreshing..." : "Refresh"}
-        </button>
-      </div>
+          <thead>
+            <tr>
+              <th>Schedule Id</th>
+              <th>Bus Id</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Journey Date</th>
+              <th>Departure</th>
+              <th>Arrival</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-      <div className="buslist-card">
-        {error && <p className="error-text">{error}</p>}
-
-        {loading && buses.length === 0 && <p>Loading buses...</p>}
-
-        {!loading && buses.length === 0 && !error && <p>No buses added yet.</p>}
-
-        {buses.length > 0 && (
-          <div className="table-wrapper">
-            <table className="buslist-table">
-              <thead>
-                <tr>
-                  <th scope="col">Bus Name</th>
-                  <th scope="col">Bus Number</th>
-                  <th scope="col">Route</th>
-                  <th scope="col">Intermediate Points</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Departure</th>
-                  <th scope="col">Arrival</th>
-                  <th scope="col">Total Seats</th>
-                  <th scope="col">Price (₹)</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {buses.map((bus) => (
-                  <tr key={bus.id}>
-                    <td>{bus.busName}</td>
-                    <td>{bus.busNumber}</td>
-                    <td>{bus.from} → {bus.to}</td>
-                    <td>
-                      {bus.intermediatePoints && bus.intermediatePoints.length > 0
-                        ? bus.intermediatePoints.join(", ")
-                        : "None"}
-                    </td>
-                    <td>{bus.busType}</td>
-                    <td>{bus.departureTime}</td>
-                    <td>{bus.arrivalTime}</td>
-                    <td>{bus.totalSeats}</td>
-                    <td>{bus.price}</td>
-                    <td>
-                      {bus.status === "active" ? (
-                        <FaBus color="#16a34a" title="Active" />
-                      ) : (
-                        <FaBus color="#b91c1c" title="Inactive" />
-                      )}
-                    </td>
-                    <td className="actions">
-                      <button className="action-btn edit-btn" onClick={() => onEdit(bus)}>
-                        Edit
-                      </button>
-                      <button className="action-btn delete-btn" onClick={() => onDelete(bus.id)}>
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
+          <tbody>
+            {buses.map((bus) => (
+              <tr key={bus.id}>
+                <td>{bus.id}</td>
+                <td>{bus.busId}</td>
+                <td>{bus.fromCity}</td>
+                <td>{bus.toCity}</td>
+                <td>
+                  {new Date(bus.journeyDate).toLocaleDateString()}
+                </td>
+                <td>{bus.departureTime}</td>
+                <td>{bus.arrivalTime}</td>
+                <td>₹{bus.ticketPrice}</td>
+                <td>
+                  <button
+                    onClick={() => cancelBus(bus.id)}
+                    style={{
+                      backgroundColor: "red",
+                      color: "white",
+                      border: "none",
+                      padding: "6px 12px",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
 
 export default BusList;
-
