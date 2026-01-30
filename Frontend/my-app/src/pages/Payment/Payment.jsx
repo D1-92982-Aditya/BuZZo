@@ -20,7 +20,7 @@ export default function PaymentPage() {
 
     setPassengers(
       selectedSeats.map(seat => ({
-        seat, // EXACT seat number like "1A", "L1"
+        seat,
         name: "",
         age: "",
         gender: ""
@@ -58,6 +58,20 @@ export default function PaymentPage() {
 
     try {
       /* -------------------------------
+         🧾 CONSOLE LOG – DB FIELDS PREVIEW
+      -------------------------------- */
+      console.log("🧾 Ticket Table Fields (BEFORE PAYMENT):", {
+        booking_id: "GENERATED AFTER PAYMENT",
+        from_city: selectedBus.fromCity,
+        to_city: selectedBus.toCity,
+        journey_date: selectedBus.journeyDate,
+        passenger_name: passengers.map(p => p.name).join(", "),
+        seat_number: selectedSeats.join(", "),
+        booked_at: "SET BY BACKEND",
+        user_id: "FROM JWT (BACKEND)"
+      });
+
+      /* -------------------------------
          1️⃣ BOOK SEATS (BACKEND)
       -------------------------------- */
       for (const p of passengers) {
@@ -90,24 +104,25 @@ export default function PaymentPage() {
         handler: async function (response) {
 
           console.log("✅ Razorpay Payment Response:", response);
-        
+
           const bookingId =
             "T" + Math.random().toString(36).substring(2, 8).toUpperCase();
-        
+
+          /* -------------------------------
+             📦 FINAL TICKET PAYLOAD
+          -------------------------------- */
           const ticketPayload = {
             bookingId: bookingId,
-            busName: selectedBus.busName,
+            passengerName: passengers.map(p => p.name).join(", "),
             fromCity: selectedBus.fromCity,
             toCity: selectedBus.toCity,
             journeyDate: selectedBus.journeyDate,
-            seats: selectedSeats.join(", "),
-            totalAmount: paymentInfo.total,
-            paymentId: response.razorpay_payment_id
+            seatNumber: selectedSeats.join(", ")
           };
-        
-          console.log("📦 Ticket Payload to Backend:", ticketPayload);
-        
-         /* const res = await fetch("http://localhost:8080/tickets/success", {
+
+          console.log("📦 Ticket Payload Sent to Backend:", ticketPayload);
+
+          const res = await fetch("https://buzzo-5.onrender.com/tickets/success", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -115,32 +130,27 @@ export default function PaymentPage() {
             },
             body: JSON.stringify(ticketPayload)
           });
-          */
-        
+
           console.log("📡 Backend Response Status:", res.status);
-        
+
           const backendText = await res.text();
           console.log("📨 Backend Response Body:", backendText);
-        
+
           setPaymentInfo({
             ...paymentInfo,
             passengers,
-            paymentId: response.razorpay_payment_id,
             bookingId
           });
-        
-          console.log("🧠 Updated paymentInfo (context):", {
+
+          console.log("🧠 Updated paymentInfo (Context):", {
             ...paymentInfo,
             passengers,
-            paymentId: response.razorpay_payment_id,
             bookingId
           });
-        
+
           alert("🎉 Booking & Payment Successful");
           navigate("/ticket");
-        }
-        
-        ,
+        },
 
         prefill: {
           name: passengers[0].name,
@@ -170,7 +180,6 @@ export default function PaymentPage() {
     <div className="payment-boundary">
       <div className="payment-page">
 
-        {/* BUS INFO */}
         <div className="bus-card">
           <h2>🚌 {selectedBus.busName} | {selectedBus.busType}</h2>
           <p>📍 {selectedBus.fromCity} → {selectedBus.toCity}</p>
@@ -179,7 +188,6 @@ export default function PaymentPage() {
           <h3>💰 Total: ₹{paymentInfo.total}</h3>
         </div>
 
-        {/* PASSENGERS */}
         <div className="passenger-section">
           <h3>Passenger Details</h3>
 
@@ -214,7 +222,6 @@ export default function PaymentPage() {
           ))}
         </div>
 
-        {/* PAY */}
         <button
           className="pay-button"
           disabled={!allFilled || loading}
