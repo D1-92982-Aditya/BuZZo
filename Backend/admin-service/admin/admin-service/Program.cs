@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using admin_service.Data;
-using System;
 
 namespace admin_service
 {
@@ -24,6 +23,18 @@ namespace admin_service
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+           
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("ReactPolicy", policy =>
+                {
+                    policy
+                        .WithOrigins("http://localhost:5173")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -32,8 +43,10 @@ namespace admin_service
                 app.UseSwaggerUI();
             }
 
-            
+            app.UseHttpsRedirection();      
+            app.UseCors("ReactPolicy");     
             app.UseAuthorization();
+
             app.MapControllers();
             app.Run();
         }

@@ -41,6 +41,7 @@ namespace admin_service.Models
         [Column("bus_id")]
         public long BusId { get; set; }
 
-        public Bus Bus { get; set; }
+        public Bus? Bus { get; set; } // allow null
+
     }
 }

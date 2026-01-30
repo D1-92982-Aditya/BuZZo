@@ -1,138 +1,105 @@
-/* Main container */
-.add-container {
+/* ===== Page Wrapper ===== */
+form {
   max-width: 900px;
-  margin: auto;
-  padding: 20px;
-
-  /* Scrollbars */
-  max-height: 80vh;       /* Vertical limit */
-  overflow-y: auto;       /* Vertical scroll if content exceeds max-height */
-  overflow-x: auto;       /* Horizontal scroll if content exceeds width */
+  margin: 30px auto;
+  padding: 30px;
+  background: #f9fafb;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
-/* Optional: Custom scrollbar (modern browsers) */
-.add-container::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;  /* horizontal scrollbar */
+/* ===== Form Headings ===== */
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 18px;
+  border-left: 5px solid #2563eb;
+  padding-left: 10px;
 }
 
-.add-container::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 4px;
-}
-
-.add-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-/* Heading */
-.add-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 28px;
-}
-
-/* Grid for inputs */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-}
-
-/* Input & select fields */
-.form-grid input,
-.form-grid select {
-  padding: 12px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-  font-size: 15px;
+/* ===== Inputs & Selects ===== */
+input, select {
   width: 100%;
-  box-sizing: border-box;
-}
-
-/* Responsive grid — tablet */
-@media (max-width: 900px) {
-  .form-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Responsive grid — mobile */
-@media (max-width: 600px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Intermediate points title */
-.points-title {
-  margin-top: 25px;
-  font-size: 20px;
-}
-
-/* Points add UI */
-.points-add {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.points-add input {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #aaa;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  border: 1px solid #d1d5db;
   border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.2s, box-shadow 0.2s;
 }
 
-.add-btn {
-  padding: 10px 16px;
+input:focus, select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* ===== Boarding / Dropping Points Section ===== */
+div > input[type="time"] {
+  width: 30%;
+  margin-left: 10px;
+}
+
+/* Inline flex for boarding/dropping row */
+div > input, div > button {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* ===== Add Buttons (Boarding / Dropping) ===== */
+button[type="button"] {
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 6px;
   border: none;
-  background: #16a34a;
-  color: white;
-  font-size: 20px;
-  border-radius: 6px;
   cursor: pointer;
-}
-
-/* Points list */
-.points-list {
-  margin-top: 10px;
-  padding: 0;
-  list-style: none;
-}
-
-.points-list li {
-  background: #f3f4f6;
-  padding: 10px 14px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  border-radius: 6px;
-}
-
-.remove-point {
-  background: red;
-  border: none;
-  color: white;
-  padding: 5px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* Save button */
-.save-btn {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
   background: #2563eb;
-  color: white;
+  color: #ffffff;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+button[type="button"]:hover {
+  background: #1d4ed8;
+}
+
+/* ===== Submit Button ===== */
+button[type="submit"] {
+  margin-top: 20px;
+  padding: 12px 28px;
+  background: #16a34a;  /* Green */
+  color: #ffffff;
+  font-size: 15px;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
   cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
 }
 
-.save-btn:hover {
-  background: #1e4ed8;
+button[type="submit"]:hover {
+  background: #15803d;
 }
 
+/* ===== Boarding / Dropping Row Styling ===== */
+div > input, div > button {
+  margin-bottom: 8px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  form {
+    padding: 20px;
+  }
+  div > input[type="time"] {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 6px;
+  }
+  div > input, div > button {
+    display: block;
+    margin-right: 0;
+  }
+}

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj": {}
+    "C:\\Users\\Lenovo\\Desktop\\buzzo_new\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj": {
+    "C:\\Users\\Lenovo\\Desktop\\buzzo_new\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj",
+        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\buzzo_new\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj",
         "projectName": "admin-service",
-        "projectPath": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj",
-        "packagesPath": "C:\\Users\\abhay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abhay\\OneDrive\\Desktop\\Buzzo\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\obj\\",
+        "projectPath": "C:\\Users\\Lenovo\\Desktop\\buzzo_new\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lenovo\\Desktop\\buzzo_new\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\abhay\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -25,6 +25,7 @@
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -93,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
