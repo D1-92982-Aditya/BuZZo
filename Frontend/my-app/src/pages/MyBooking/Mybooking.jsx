@@ -12,7 +12,7 @@ const MyBooking = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:8080/tickets/myticket", {
+        const res = await fetch("https://buzzo-5.onrender.com/tickets/tickets/myticket", {
           headers: {
             Authorization: `Bearer ${token}`
           }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import API from "../services/api";
 import { useBus } from "../BusContext/BusContext";
@@ -99,7 +99,7 @@ const FilterCard = ({
       max="2000"
       value={priceRange[1]}
       onChange={(e) =>
-        setPriceRange([priceRange[0], parseInt(e.target.value)])
+        setPriceRange([priceRange[0], Number(e.target.value)])
       }
       style={{ width: "100%", accentColor: "#0d6efd" }}
     />
@@ -132,13 +132,22 @@ const SelectBus = () => {
     nonac: false,
   });
 
+  /* ✅ SMALL SCREEN FILTER */
+  const [showFilter, setShowFilter] = useState(false);
+  const isSmallScreen = window.innerWidth <= 768;
+
+  /* ✅ FIX FOR DOUBLE API CALL (STRICT MODE) */
+  const fetchedOnce = useRef(false);
+
   const handleFilterChange = (filter) => {
     setSelectedFilters((prev) => ({ ...prev, [filter]: !prev[filter] }));
   };
 
-  /* 🔹 FETCH BUSES */
   useEffect(() => {
     if (!fromCity || !toCity || !journeyDate) return;
+    if (fetchedOnce.current) return; // 🔥 PREVENT DOUBLE CALL
+
+    fetchedOnce.current = true;
 
     const fetchBuses = async () => {
       setLoading(true);
@@ -152,10 +161,10 @@ const SelectBus = () => {
 
         if (data.length > 0) {
           setSelectedSchedule(data[0]);
-          setShowModal(true); // ✅ AUTO OPEN MODAL
+          setShowModal(true);
         }
-      } catch (e) {
-        console.error(e);
+      } catch (err) {
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -165,28 +174,21 @@ const SelectBus = () => {
   }, [fromCity, toCity, journeyDate]);
 
   const handleSelectSeat = (bus) => {
-  const selectedBus = {
-    scheduleId: bus.id,
-    busName: bus.bus.busName,
-    busType: bus.bus.busType,
-    totalSeats: bus.bus.totalSeats,
-    departureTime: bus.departureTime,
-    arrivalTime: bus.arrivalTime,
-    
-    fromCity,
-    toCity,
-    journeyDate,
+    const selectedBus = {
+      scheduleId: bus.id,
+      busName: bus.bus.busName,
+      busType: bus.bus.busType,
+      totalSeats: bus.bus.totalSeats,
+      departureTime: bus.departureTime,
+      arrivalTime: bus.arrivalTime,
+      fromCity,
+      toCity,
+      journeyDate,
+    };
+
+    setSelectedBus(selectedBus);
+    navigate("/seat", { state: { selectedBus } });
   };
-
-  setSelectedBus(selectedBus);
-
-  navigate("/seat", {
-    state: {
-      selectedBus: selectedBus,
-    },
-  });
-};
-
 
   return (
     <div
@@ -200,6 +202,23 @@ const SelectBus = () => {
         Buses from {fromCity} to {toCity}
       </h2>
 
+      {/* FILTER BUTTON – SMALL SCREEN */}
+      {isSmallScreen && (
+        <button
+          onClick={() => setShowFilter(!showFilter)}
+          style={{
+            backgroundColor: "#0d6efd",
+            color: "#fff",
+            border: "none",
+            padding: "10px 16px",
+            borderRadius: "6px",
+            margin: "10px 0",
+          }}
+        >
+          {showFilter ? "Hide Filters" : "Show Filters"}
+        </button>
+      )}
+
       {/* MODAL */}
       {showModal && selectedSchedule && (
         <BoardingDroppingModal
@@ -208,16 +227,18 @@ const SelectBus = () => {
         />
       )}
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-        {/* LEFT FILTER */}
-        <FilterCard
-          priceRange={priceRange}
-          setPriceRange={setPriceRange}
-          selectedFilters={selectedFilters}
-          handleFilterChange={handleFilterChange}
-        />
+      <div style={{ display: "flex", gap: "20px" }}>
+        {/* FILTER */}
+        {(!isSmallScreen || showFilter) && (
+          <FilterCard
+            priceRange={priceRange}
+            setPriceRange={setPriceRange}
+            selectedFilters={selectedFilters}
+            handleFilterChange={handleFilterChange}
+          />
+        )}
 
-        {/* RIGHT BUS LIST */}
+        {/* BUS LIST */}
         <div style={{ flex: 1 }}>
           {loading ? (
             <p style={{ color: "#fff" }}>Loading buses...</p>
@@ -242,8 +263,8 @@ const SelectBus = () => {
                   Departure: {bus.departureTime} | Arrival:{" "}
                   {bus.arrivalTime}
                 </p>
-                <p>Seats Available: {bus.bus.totalSeats}</p>
 
+                <p>Seats Available: {bus.bus.totalSeats}</p>
                 <h3>₹{bus.ticketPrice}</h3>
 
                 <button

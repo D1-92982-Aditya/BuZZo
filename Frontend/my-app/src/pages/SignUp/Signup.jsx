@@ -19,12 +19,12 @@ const Signup = () => {
       alert("All fields are required");
       return;
     }
-
+  
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-
+  
     try {
       const res = await fetch("https://buzzo-5.onrender.com/auth/register", {
         method: "POST",
@@ -37,21 +37,36 @@ const Signup = () => {
           password: password
         })
       });
-
-      const data = await res.json();
-
+  
+      // 🔥 HTTP safety
+      if (!res.ok) {
+        alert("Signup failed. Server error.");
+        return;
+      }
+  
+      let data;
+      try {
+        data = await res.json();
+      } catch (err) {
+        // 🔥 Backend responded but JSON not returned (Render issue)
+        alert("Account created successfully! Please login.");
+        navigate("/");
+        return;
+      }
+  
       if (!data.success) {
         alert(data.message);
         return;
       }
-
+  
       alert("Account created successfully! Please login.");
-      navigate("/"); // 🔥 GO TO LOGIN
-
+      navigate("/");
+  
     } catch (error) {
       alert("Signup failed. Try again.");
     }
   };
+  
 
   return (
     <>
