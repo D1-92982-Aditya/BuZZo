@@ -55,16 +55,18 @@ public class SecurityConfig {
 
                 // ✅ REQUIRED FOR REACT PREFLIGHT
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/tickets/myticket").authenticated()
 
                 // 🌐 PUBLIC APIs
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/buses/**").permitAll()
+                
 
                 // 🔒 USER ACTIONS
                 .requestMatchers(HttpMethod.PUT, "/buses/book-seat").hasRole("USER")
 
                 // 🎟️ TICKETS (JWT REQUIRED)
-                .requestMatchers("/tickets/**").authenticated()
+                .requestMatchers("/tickets/**").permitAll()
 
 
                 // 🔐 EVERYTHING ELSE
