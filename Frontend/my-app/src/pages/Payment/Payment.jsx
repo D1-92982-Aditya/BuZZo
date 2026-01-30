@@ -76,7 +76,7 @@ export default function PaymentPage() {
       -------------------------------- */
       for (const p of passengers) {
         const res = await fetch(
-          `http://localhost:8080/buses/book-seat?scheduleId=${selectedBus.scheduleId}&seatNumber=${p.seat}`,
+          `https://buzzo-5.onrender.com/buses/book-seat?scheduleId=${selectedBus.scheduleId}&seatNumber=${p.seat}`,
           {
             method: "PUT",
             headers: {
