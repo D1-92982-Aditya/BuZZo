@@ -45,7 +45,8 @@ namespace admin_service.Controllers
         [HttpPost]
         public IActionResult CreateBus([FromBody] BusDto bus)
         {
-            if (bus == null) return BadRequest("Invalid bus data");
+            if (bus == null)
+                return BadRequest("Invalid bus data");
 
             var entity = new Bus
             {
@@ -55,81 +56,38 @@ namespace admin_service.Controllers
                 TotalSeats = bus.TotalSeats
             };
 
+            // 1️⃣ Save Bus
             _context.Buses.Add(entity);
+            _context.SaveChanges();   // entity.Id available
+
+            // 2️⃣ Auto-generate Seats (1A, 1B, 1C...)
+            var columns = new[] { "A", "B", "C", "D", "E", "F" };
+            int seatCount = 0;
+
+            for (int row = 1; seatCount < entity.TotalSeats; row++)
+            {
+                foreach (var col in columns)
+                {
+                    if (seatCount >= entity.TotalSeats)
+                        break;
+
+                    _context.Seats.Add(new Seat
+                    {
+                        BusId = entity.Id,
+                        SeatNumber = $"{row}{col}"
+                    });
+
+                    seatCount++;
+                }
+            }
+
             _context.SaveChanges();
+
             return Ok(entity);
         }
 
-        // =======================
-        // Create bus with full schedule
-        // =======================
-        [HttpPost("full")]
-        public IActionResult CreateBusFull([FromBody] AddFullBusDto dto)
-        {
-            if (dto == null) return BadRequest("Invalid payload");
 
-            using var transaction = _context.Database.BeginTransaction();
-
-            try
-            {
-                // Add Bus
-                var bus = new Bus
-                {
-                    BusName = dto.Bus.BusName,
-                    BusNumber = dto.Bus.BusNumber,
-                    BusType = dto.Bus.BusType,
-                    TotalSeats = dto.Bus.TotalSeats
-                };
-                _context.Buses.Add(bus);
-                _context.SaveChanges();
-
-                // Add Schedule
-                var schedule = new BusSchedule
-                {
-                    BusId = bus.Id,
-                    FromCity = dto.Schedule.FromCity,
-                    ToCity = dto.Schedule.ToCity,
-                    JourneyDate = dto.Schedule.JourneyDate,
-                    DepartureTime = dto.Schedule.DepartureTime,
-                    ArrivalTime = dto.Schedule.ArrivalTime,
-                    TicketPrice = dto.Schedule.TicketPrice
-                };
-                _context.BusSchedules.Add(schedule);
-                _context.SaveChanges();
-
-                // Boarding Points
-                foreach (var bp in dto.BoardingPoints)
-                {
-                    _context.BoardingPoints.Add(new BoardingPoint
-                    {
-                        BusScheduleId = schedule.Id,
-                        LocationName = bp.LocationName,
-                        BoardingTime = TimeSpan.Parse(bp.BoardingTime)
-                    });
-                }
-
-                // Dropping Points
-                foreach (var dp in dto.DroppingPoints)
-                {
-                    _context.DroppingPoints.Add(new DroppingPoint
-                    {
-                        BusScheduleId = schedule.Id,
-                        LocationName = dp.LocationName,
-                        DroppingTime = TimeSpan.Parse(dp.BoardingTime)
-                    });
-                }
-
-                _context.SaveChanges();
-                transaction.Commit();
-
-                return CreatedAtAction(nameof(GetBus), new { id = bus.Id }, bus);
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                return StatusCode(500, $"Error saving bus: {ex.Message}");
-            }
-        }
+       
 
         // =======================
         // Update bus
@@ -240,22 +198,36 @@ namespace admin_service.Controllers
             if (schedule == null)
                 return NotFound("Bus schedule not found");
 
+            // 1️⃣ Seat bookings (MOST IMPORTANT)
+            var seatBookings = _context.SeatBookings
+                .Where(sb => sb.ScheduleId == id)
+                .ToList();
+
+            // 2️⃣ Boarding points
             var boardingPoints = _context.BoardingPoints
                 .Where(bp => bp.BusScheduleId == id)
                 .ToList();
 
+            // 3️⃣ Dropping points
             var droppingPoints = _context.DroppingPoints
                 .Where(dp => dp.BusScheduleId == id)
                 .ToList();
 
+            // 4️⃣ Delete in order
+            _context.SeatBookings.RemoveRange(seatBookings);
             _context.BoardingPoints.RemoveRange(boardingPoints);
             _context.DroppingPoints.RemoveRange(droppingPoints);
+
+            // 5️⃣ Finally delete schedule
             _context.BusSchedules.Remove(schedule);
 
             _context.SaveChanges();
 
             return Ok(new { message = "Bus cancelled successfully" });
         }
+
+
+
         // =======================
         // Create bus schedule ONLY
         // =======================
@@ -265,16 +237,36 @@ namespace admin_service.Controllers
             if (schedule == null)
                 return BadRequest("Invalid schedule data");
 
-            // check bus exists
+            // 1️⃣ Check bus exists
             var busExists = _context.Buses.Any(b => b.Id == schedule.BusId);
             if (!busExists)
                 return BadRequest("Invalid BusId");
 
+            // 2️⃣ Save schedule
             _context.BusSchedules.Add(schedule);
+            _context.SaveChanges(); // schedule.Id available
+
+            // 3️⃣ Get all seats of this bus
+            var seats = _context.Seats
+                .Where(s => s.BusId == schedule.BusId)
+                .ToList();
+
+            // 4️⃣ Create seat_bookings (booked = false)
+            foreach (var seat in seats)
+            {
+                _context.SeatBookings.Add(new SeatBooking
+                {
+                    SeatId = seat.Id,
+                    ScheduleId = schedule.Id,
+                    Booked = false
+                });
+            }
+
             _context.SaveChanges();
 
             return Ok(schedule);
         }
+
 
 
 
