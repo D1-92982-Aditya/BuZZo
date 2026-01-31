@@ -11,7 +11,8 @@ namespace admin_service.Data
         public DbSet<BusSchedule> BusSchedules { get; set; }
         public DbSet<DroppingPoint> DroppingPoints { get; set; }
         public DbSet<BoardingPoint> BoardingPoints { get; set; }
-
+        public DbSet<Seat> Seats { get; set; }
+        public DbSet<SeatBooking> SeatBookings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

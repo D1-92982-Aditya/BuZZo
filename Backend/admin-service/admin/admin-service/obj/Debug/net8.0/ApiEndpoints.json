@@ -144,22 +144,6 @@
   },
   {
     "ContainingType": "admin_service.Controllers.BusController",
-    "Method": "CreateBusFull",
-    "RelativePath": "api/Bus/full",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "admin_service.DTO.AddFullBusDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "admin_service.Controllers.BusController",
     "Method": "GetScheduledBuses",
     "RelativePath": "api/Bus/scheduled",
     "HttpMethod": "GET",

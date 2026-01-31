@@ -130,37 +130,6 @@
         }
       }
     },
-    "/api/Bus/full": {
-      "post": {
-        "tags": [
-          "Bus"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFullBusDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFullBusDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFullBusDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Bus/boardingpoints": {
       "post": {
         "tags": [
@@ -349,32 +318,6 @@
   },
   "components": {
     "schemas": {
-      "AddFullBusDto": {
-        "type": "object",
-        "properties": {
-          "bus": {
-            "$ref": "#/components/schemas/BusDto"
-          },
-          "schedule": {
-            "$ref": "#/components/schemas/BusScheduleDto"
-          },
-          "boardingPoints": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PointDto"
-            },
-            "nullable": true
-          },
-          "droppingPoints": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PointDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "BoardingPointDto": {
         "type": "object",
         "properties": {
@@ -497,36 +440,6 @@
         },
         "additionalProperties": false
       },
-      "BusScheduleDto": {
-        "type": "object",
-        "properties": {
-          "fromCity": {
-            "type": "string",
-            "nullable": true
-          },
-          "toCity": {
-            "type": "string",
-            "nullable": true
-          },
-          "journeyDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "departureTime": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "arrivalTime": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "ticketPrice": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
       "DroppingPointDto": {
         "type": "object",
         "properties": {
@@ -539,20 +452,6 @@
             "nullable": true
           },
           "droppingTime": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PointDto": {
-        "type": "object",
-        "properties": {
-          "locationName": {
-            "type": "string",
-            "nullable": true
-          },
-          "boardingTime": {
             "type": "string",
             "nullable": true
           }

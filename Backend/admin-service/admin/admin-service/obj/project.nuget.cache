@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XThQ63BGwC4=",
+  "dgSpecHash": "h/QiurDaLLM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\buzzo_new\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\buzzo_last\\BuZZo\\Backend\\admin-service\\admin\\admin-service\\admin-service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
