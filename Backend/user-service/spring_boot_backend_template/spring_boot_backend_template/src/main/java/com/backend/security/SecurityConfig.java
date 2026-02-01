@@ -61,12 +61,14 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/buses/**").permitAll()
                 
+                
 
                 // 🔒 USER ACTIONS
                 .requestMatchers(HttpMethod.PUT, "/buses/book-seat").hasRole("USER")
 
                 // 🎟️ TICKETS (JWT REQUIRED)
                 .requestMatchers("/tickets/**").permitAll()
+                .requestMatchers("/actuator/health", "/health").permitAll()
 
 
                 // 🔐 EVERYTHING ELSE
