@@ -1,19 +1,40 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import SearchCity from '../SearchCity/SearchCity';
 import './BusSearch.css';
 
 const BusSearch = () => {
+
+  const [busCount, setBusCount] = useState(0);
+  const [ticketCount, setTicketCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+  const [cityCount, setCityCount] = useState(0);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/buses/count")
+      .then(res => setBusCount(res.data.totalBuses))
+      .catch(err => console.error("Bus count error", err));
+
+    axios.get("http://localhost:8080/api/tickets/count")
+      .then(res => setTicketCount(res.data))
+      .catch(err => console.error("Ticket count error", err));
+
+    axios.get("http://localhost:8080/users-count")
+      .then(res => setUserCount(res.data.totalUsers))
+      .catch(err => console.error("User count error", err));
+
+    axios.get("http://localhost:8080/api/cities/connected/count")
+      .then(res => setCityCount(res.data))
+      .catch(err => console.error("City count error", err));
+  }, []);
+
   return (
     <>
-      {/* Top Navigation Bar */}
-    
-
       {/* Animated Bus Section */}
       <div className="animation-section">
         <div className="road">
           <div className="road-line"></div>
-          
+
           <div className="bus-animation">
             <div className="animated-bus">
               <div className="bus-top"></div>
@@ -29,84 +50,67 @@ const BusSearch = () => {
           </div>
 
           <div className="trees">
-            <div className="tree">
-              <div className="tree-trunk"></div>
-              <div className="tree-leaves"></div>
-            </div>
-            <div className="tree">
-              <div className="tree-trunk"></div>
-              <div className="tree-leaves"></div>
-            </div>
-            <div className="tree">
-              <div className="tree-trunk"></div>
-              <div className="tree-leaves"></div>
-            </div>
-            <div className="tree">
-              <div className="tree-trunk"></div>
-              <div className="tree-leaves"></div>
-            </div>
-            <div className="tree">
-              <div className="tree-trunk"></div>
-              <div className="tree-leaves"></div>
-            </div>
+            {[...Array(5)].map((_, i) => (
+              <div className="tree" key={i}>
+                <div className="tree-trunk"></div>
+                <div className="tree-leaves"></div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Search City Component */}
-           <SearchCity />
+      {/* Search City */}
+      <SearchCity />
 
-      {/* Bottom Animation Section */}
+      {/* Bottom Animation & Stats */}
       <div className="bottom-animation">
-        {/* Floating Buses */}
+
         <div className="floating-buses">
-          <div className="floating-bus">🚌</div>
-          <div className="floating-bus">🚌</div>
-          <div className="floating-bus">🚌</div>
-          <div className="floating-bus">🚌</div>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div className="floating-bus" key={i}>🚌</div>
+          ))}
         </div>
 
-        {/* Particles */}
         <div className="particles">
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div className="particle" key={i}></div>
+          ))}
         </div>
 
-        {/* Wave */}
         <div className="wave"></div>
 
         {/* Stats Cards */}
         <div className="stats-container">
+
           <div className="stat-card">
             <div className="stat-icon">🚌</div>
-            <div className="stat-number">500+</div>
+            <div className="stat-number">{busCount}</div>
             <div className="stat-label">Buses Available</div>
           </div>
 
           <div className="stat-card">
             <div className="stat-icon">🎫</div>
-            <div className="stat-number">50K+</div>
+            <div className="stat-number">{ticketCount}</div>
             <div className="stat-label">Tickets Booked</div>
           </div>
 
           <div className="stat-card">
             <div className="stat-icon">😊</div>
-            <div className="stat-number">45K+</div>
+            <div className="stat-number">{userCount}</div>
             <div className="stat-label">Happy Customers</div>
           </div>
 
           <div className="stat-card">
             <div className="stat-icon">🏙️</div>
-            <div className="stat-number">100+</div>
+            <div className="stat-number">{cityCount}</div>
             <div className="stat-label">Cities Connected</div>
           </div>
+
         </div>
       </div>
     </>
   );
-}
+};
 
 export default BusSearch;

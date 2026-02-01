@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "gvqd096hhdAn7rYMpwG0KkSaAMMH0xT8S31OqoSDAm4=",
+  "Hash": "f/2o0Atz7VrUCm58vjQ/q6Eml9Dd6NLXDcHHXmhbXNI=",
   "Source": "admin-service",
   "BasePath": "_content/admin-service",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }

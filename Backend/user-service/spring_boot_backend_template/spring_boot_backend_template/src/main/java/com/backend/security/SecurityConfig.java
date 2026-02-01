@@ -60,6 +60,14 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/buses/**").permitAll()
 
+             // ✅ PUBLIC STATS APIs
+                .requestMatchers(HttpMethod.GET,
+                        "/users-count",
+                        "/api/tickets/count",
+                        "/api/cities/connected/count"
+                ).permitAll()
+                
+                
                 // 🔒 USER ACTIONS
                 .requestMatchers(HttpMethod.PUT, "/buses/book-seat").hasRole("USER")
 

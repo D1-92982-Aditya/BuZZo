@@ -104,7 +104,7 @@ const FilterCard = ({
       style={{ width: "100%", accentColor: "#0d6efd" }}
     />
     <p style={{ fontSize: "12px" }}>
-      ₹{priceRange[0]} - ₹{priceRange[1]}
+      Up to ₹{priceRange[1]}
     </p>
   </div>
 );
@@ -118,6 +118,7 @@ const SelectBus = () => {
   const { fromCity, toCity, journeyDate } = location.state || {};
 
   const [buses, setBuses] = useState([]);
+  const [filteredBuses, setFilteredBuses] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
@@ -149,10 +150,11 @@ const SelectBus = () => {
 
         const data = res.data || [];
         setBuses(data);
+        setFilteredBuses(data);
 
         if (data.length > 0) {
           setSelectedSchedule(data[0]);
-          setShowModal(true); // ✅ AUTO OPEN MODAL
+          setShowModal(true);
         }
       } catch (e) {
         console.error(e);
@@ -164,43 +166,81 @@ const SelectBus = () => {
     fetchBuses();
   }, [fromCity, toCity, journeyDate]);
 
+  /* 🔹 APPLY FILTERS */
+  useEffect(() => {
+    const isAnyFilterApplied =
+      selectedFilters.morning ||
+      selectedFilters.evening ||
+      selectedFilters.night ||
+      selectedFilters.ac ||
+      selectedFilters.nonac ||
+      priceRange[1] !== 2000;
+
+    if (!isAnyFilterApplied) {
+      setFilteredBuses(buses);
+      return;
+    }
+
+    let result = [...buses];
+
+    // 💰 PRICE FILTER (MAX ONLY — FIXED)
+    if (priceRange[1] !== 2000) {
+      result = result.filter(
+        (bus) => bus.ticketPrice <= priceRange[1]
+      );
+    }
+
+    // 🕒 TIME FILTER
+    if (
+      selectedFilters.morning ||
+      selectedFilters.evening ||
+      selectedFilters.night
+    ) {
+      result = result.filter((bus) => {
+        const hour = parseInt(bus.departureTime.split(":")[0]);
+        if (selectedFilters.morning && hour >= 5 && hour < 11) return true;
+        if (selectedFilters.evening && hour >= 11 && hour < 19) return true;
+        if (selectedFilters.night && (hour >= 19 || hour < 5)) return true;
+        return false;
+      });
+    }
+
+    // 🚌 BUS TYPE FILTER
+    if (selectedFilters.ac || selectedFilters.nonac) {
+      result = result.filter((bus) => {
+        const type = bus.bus.busType.toLowerCase();
+        if (selectedFilters.ac && type.includes("ac")) return true;
+        if (selectedFilters.nonac && !type.includes("ac")) return true;
+        return false;
+      });
+    }
+
+    setFilteredBuses(result);
+  }, [buses, priceRange, selectedFilters]);
+
   const handleSelectSeat = (bus) => {
-  const selectedBus = {
-    scheduleId: bus.id,
-    busName: bus.bus.busName,
-    busType: bus.bus.busType,
-    totalSeats: bus.bus.totalSeats,
-    departureTime: bus.departureTime,
-    arrivalTime: bus.arrivalTime,
-    
-    fromCity,
-    toCity,
-    journeyDate,
+    const selectedBus = {
+      scheduleId: bus.id,
+      busName: bus.bus.busName,
+      busType: bus.bus.busType,
+      totalSeats: bus.bus.totalSeats,
+      departureTime: bus.departureTime,
+      arrivalTime: bus.arrivalTime,
+      fromCity,
+      toCity,
+      journeyDate,
+    };
+
+    setSelectedBus(selectedBus);
+    navigate("/seat", { state: { selectedBus } });
   };
 
-  setSelectedBus(selectedBus);
-
-  navigate("/seat", {
-    state: {
-      selectedBus: selectedBus,
-    },
-  });
-};
-
-
   return (
-    <div
-      style={{
-        backgroundColor: "#2c3e50",
-        minHeight: "100vh",
-        padding: "20px",
-      }}
-    >
+    <div style={{ backgroundColor: "#2c3e50", minHeight: "100vh", padding: "20px" }}>
       <h2 style={{ color: "#fff" }}>
         Buses from {fromCity} to {toCity}
       </h2>
 
-      {/* MODAL */}
       {showModal && selectedSchedule && (
         <BoardingDroppingModal
           schedule={selectedSchedule}
@@ -209,7 +249,6 @@ const SelectBus = () => {
       )}
 
       <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-        {/* LEFT FILTER */}
         <FilterCard
           priceRange={priceRange}
           setPriceRange={setPriceRange}
@@ -217,12 +256,11 @@ const SelectBus = () => {
           handleFilterChange={handleFilterChange}
         />
 
-        {/* RIGHT BUS LIST */}
         <div style={{ flex: 1 }}>
           {loading ? (
             <p style={{ color: "#fff" }}>Loading buses...</p>
-          ) : buses.length > 0 ? (
-            buses.map((bus) => (
+          ) : filteredBuses.length > 0 ? (
+            filteredBuses.map((bus) => (
               <div
                 key={bus.id}
                 style={{
@@ -239,8 +277,7 @@ const SelectBus = () => {
                 <StarRating rating={4} />
 
                 <p>
-                  Departure: {bus.departureTime} | Arrival:{" "}
-                  {bus.arrivalTime}
+                  Departure: {bus.departureTime} | Arrival: {bus.arrivalTime}
                 </p>
                 <p>Seats Available: {bus.bus.totalSeats}</p>
 
