@@ -25,15 +25,18 @@ namespace admin_service
 
            
             builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("ReactPolicy", policy =>
-                {
-                    policy
-                        .WithOrigins("http://localhost:5173")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-                });
-            });
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
+app.UseCors("AllowAll");
+
 
             var app = builder.Build();
 
