@@ -12,7 +12,7 @@ const MyBooking = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://3.21.240.29:8080/tickets/myticket", {
+        const res = await fetch("/api/tickets/myticket", {
           headers: {
             Authorization: `Bearer ${token}`
           }
