@@ -26,7 +26,7 @@ const Signup = () => {
     }
   
     try {
-      const res = await fetch("https://buzzo-5.onrender.com/auth/register", {
+      const res = await fetch("http://3.21.240.29:8080/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

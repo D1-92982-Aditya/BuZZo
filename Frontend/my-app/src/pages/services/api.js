@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://buzzo-5.onrender.com/buses/schedules",
+  baseURL: "http://3.21.240.29:8080/buses/schedules",
 });
 
 export default API;

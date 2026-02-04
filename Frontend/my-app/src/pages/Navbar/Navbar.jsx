@@ -62,7 +62,7 @@ const Navbar = () => {
               </Link>
               <ul className="dropdown-menu" aria-labelledby="manageBookings">
                 <li><Link className="dropdown-item" to="/bookings">My Bookings</Link></li>
-                <li><Link className="dropdown-item" to="/reschedule">Reschedule</Link></li>
+                
               </ul>
             </li>
             <li className="nav-item">

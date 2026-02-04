@@ -76,7 +76,7 @@ export default function PaymentPage() {
       -------------------------------- */
       for (const p of passengers) {
         const res = await fetch(
-          `https://buzzo-5.onrender.com/buses/book-seat?scheduleId=${selectedBus.scheduleId}&seatNumber=${p.seat}`,
+          `http://3.21.240.29:8080/buses/book-seat?scheduleId=${selectedBus.scheduleId}&seatNumber=${p.seat}`,
           {
             method: "PUT",
             headers: {
@@ -122,7 +122,7 @@ export default function PaymentPage() {
 
           console.log("📦 Ticket Payload Sent to Backend:", ticketPayload);
 
-          const res = await fetch("https://buzzo-5.onrender.com/tickets/success", {
+          const res = await fetch("http://3.21.240.29:8080/tickets/success", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

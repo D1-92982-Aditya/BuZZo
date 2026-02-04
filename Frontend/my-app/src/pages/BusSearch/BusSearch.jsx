@@ -82,25 +82,25 @@ const BusSearch = () => {
         <div className="stats-container">
           <div className="stat-card">
             <div className="stat-icon">🚌</div>
-            <div className="stat-number">500+</div>
+            <div className="stat-number">20+</div>
             <div className="stat-label">Buses Available</div>
           </div>
 
           <div className="stat-card">
             <div className="stat-icon">🎫</div>
-            <div className="stat-number">50K+</div>
+            <div className="stat-number">100+</div>
             <div className="stat-label">Tickets Booked</div>
           </div>
 
           <div className="stat-card">
             <div className="stat-icon">😊</div>
-            <div className="stat-number">45K+</div>
+            <div className="stat-number">100+</div>
             <div className="stat-label">Happy Customers</div>
           </div>
 
           <div className="stat-card">
             <div className="stat-icon">🏙️</div>
-            <div className="stat-number">100+</div>
+            <div className="stat-number">200+</div>
             <div className="stat-label">Cities Connected</div>
           </div>
         </div>

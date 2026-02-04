@@ -3,116 +3,206 @@ import { Bus, Shield, Zap, Users } from "lucide-react";
 
 const About = () => {
   return (
-    <>
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-      />
+    <div style={styles.page}>
+      {/* Header */}
+      <div style={styles.header}>
+        <Bus size={48} color="#2563eb" />
+        <h1 style={styles.title}>About Buzzo</h1>
+        <p style={styles.subtitle}>
+          A simple and reliable bus ticket booking platform built for smooth,
+          secure, and stress-free travel.
+        </p>
+      </div>
 
-      <div className="container py-5">
-        {/* Title Section */}
-        <div className="row justify-content-center text-center mb-5">
-          <div className="col-md-8">
-            <Bus size={50} className="text-primary mb-3" />
-            <h1 className="fw-bold mb-3">About Buzzo</h1>
-            <p className="text-muted">
-              Buzzo is a simple and reliable bus ticket booking platform
-              designed to make travel smooth, secure, and stress-free.
-            </p>
-          </div>
-        </div>
+      {/* Features */}
+      <div style={styles.features}>
+        <Feature
+          icon={<Bus size={28} />}
+          title="Easy Booking"
+          desc="Book tickets quickly with a clean interface."
+        />
+        <Feature
+          icon={<Shield size={28} />}
+          title="Secure Payments"
+          desc="Encrypted and safe transactions."
+        />
+        <Feature
+          icon={<Zap size={28} />}
+          title="Fast Confirmation"
+          desc="Instant booking confirmation."
+        />
+        <Feature
+          icon={<Users size={28} />}
+          title="Trusted Platform"
+          desc="Used by thousands of travelers."
+        />
+      </div>
 
-        {/* Features Section */}
-        <div className="row justify-content-center text-center mb-5">
-          <div className="col-md-10">
-            <div className="row">
-              <div className="col-6 col-md-3 mb-4">
-                <Bus size={32} className="text-primary mb-2" />
-                <h6 className="fw-semibold">Easy Booking</h6>
-                <p className="text-muted small">
-                  Book tickets quickly with a simple interface.
-                </p>
-              </div>
+      {/* Mission */}
+      <div style={styles.section}>
+        <h2 style={styles.sectionTitle}>Our Mission</h2>
+        <p style={styles.text}>
+          To simplify bus travel by connecting passengers with trusted operators
+          through a fast, transparent, and user-friendly booking experience.
+        </p>
+      </div>
 
-              <div className="col-6 col-md-3 mb-4">
-                <Shield size={32} className="text-primary mb-2" />
-                <h6 className="fw-semibold">Secure Payments</h6>
-                <p className="text-muted small">
-                  Your transactions are safe and encrypted.
-                </p>
-              </div>
-
-              <div className="col-6 col-md-3 mb-4">
-                <Zap size={32} className="text-primary mb-2" />
-                <h6 className="fw-semibold">Fast Confirmation</h6>
-                <p className="text-muted small">
-                  Get instant booking confirmation.
-                </p>
-              </div>
-
-              <div className="col-6 col-md-3 mb-4">
-                <Users size={32} className="text-primary mb-2" />
-                <h6 className="fw-semibold">Trusted Platform</h6>
-                <p className="text-muted small">
-                  Used by thousands of travelers.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mission Section */}
-        <div className="row justify-content-center text-center mb-5">
-          <div className="col-md-8">
-            <h3 className="fw-bold mb-3">Our Mission</h3>
-            <p className="text-muted">
-              Our mission is to simplify bus travel by connecting passengers
-              with trusted operators through a fast, transparent, and
-              user-friendly booking experience.
-            </p>
-          </div>
-        </div>
-
-        {/* Team Section */}
-        <div className="row justify-content-center text-center mb-4">
-          <div className="col-md-8">
-            <h3 className="fw-bold mb-4">Our Team</h3>
-          </div>
-        </div>
-
-        <div className="row justify-content-center text-center">
+      {/* Team */}
+      <div style={styles.section}>
+        <h2 style={styles.sectionTitle}>Our Team</h2>
+        <div style={styles.team}>
           {[
             { name: "Aditya", role: "Full Stack Developer" },
             { name: "Rashmi", role: "UI/UX Designer" },
             { name: "Vaishnavi", role: "Backend Developer" },
             { name: "Aryavrat", role: "Frontend Developer" }
-          ].map((member, index) => (
-            <div className="col-6 col-md-3 mb-4" key={index}>
-              <div className="border rounded p-3 h-100">
-                <div
-                  className="mx-auto mb-2 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                  style={{ width: "55px", height: "55px" }}
-                >
-                  {member.name.charAt(0)}
-                </div>
-                <h6 className="fw-semibold mb-1">{member.name}</h6>
-                <small className="text-muted">{member.role}</small>
+          ].map((member, i) => (
+            <div key={i} style={styles.card}>
+              <div style={styles.avatar}>{member.name[0]}</div>
+              <div>
+                <h4 style={styles.name}>{member.name}</h4>
+                <p style={styles.role}>{member.role}</p>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Footer */}
-        <div className="row justify-content-center text-center mt-5">
-          <div className="col-md-8">
-            <p className="text-muted small mb-0">
-              © {new Date().getFullYear()} Buzzo. All rights reserved.
-            </p>
-          </div>
-        </div>
       </div>
-    </>
+
+      {/* Footer */}
+      <footer style={styles.footer}>
+        © {new Date().getFullYear()} Buzzo. All rights reserved.
+      </footer>
+    </div>
   );
+};
+
+const Feature = ({ icon, title, desc }) => (
+  <div style={styles.featureCard}>
+    <div style={styles.featureIcon}>{icon}</div>
+    <h4 style={styles.featureTitle}>{title}</h4>
+    <p style={styles.featureDesc}>{desc}</p>
+  </div>
+);
+
+const styles = {
+  page: {
+    maxWidth: "1000px",
+    margin: "0 auto",
+    padding: "40px 20px",
+    fontFamily: "system-ui, sans-serif",
+    color: "#1f2937",
+    textAlign: "center"
+  },
+
+  header: {
+    marginBottom: "40px"
+  },
+
+  title: {
+    fontSize: "2.2rem",
+    fontWeight: 700,
+    margin: "10px 0"
+  },
+
+  subtitle: {
+    fontSize: "1rem",
+    color: "#6b7280",
+    maxWidth: "600px",
+    margin: "0 auto"
+  },
+
+  features: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+    gap: "20px",
+    marginBottom: "50px"
+  },
+
+  featureCard: {
+    padding: "20px",
+    borderRadius: "12px",
+    border: "1px solid #e5e7eb",
+    background: "#ffffff"
+  },
+
+  featureIcon: {
+    color: "#2563eb",
+    marginBottom: "10px"
+  },
+
+  featureTitle: {
+    fontSize: "1rem",
+    fontWeight: 600
+  },
+
+  featureDesc: {
+    fontSize: "0.9rem",
+    color: "#6b7280"
+  },
+
+  section: {
+    marginBottom: "50px"
+  },
+
+  sectionTitle: {
+    fontSize: "1.6rem",
+    fontWeight: 600,
+    marginBottom: "10px"
+  },
+
+  text: {
+    maxWidth: "650px",
+    margin: "0 auto",
+    fontSize: "0.95rem",
+    color: "#4b5563"
+  },
+
+  team: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "20px",
+    marginTop: "25px"
+  },
+
+  card: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    padding: "15px",
+    borderRadius: "12px",
+    border: "1px solid #e5e7eb",
+    background: "#ffffff",
+    textAlign: "left"
+  },
+
+  avatar: {
+    width: "45px",
+    height: "45px",
+    borderRadius: "50%",
+    background: "#2563eb",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: 600
+  },
+
+  name: {
+    margin: 0,
+    fontSize: "1rem"
+  },
+
+  role: {
+    margin: 0,
+    fontSize: "0.85rem",
+    color: "#6b7280"
+  },
+
+  footer: {
+    fontSize: "0.8rem",
+    color: "#9ca3af",
+    marginTop: "40px"
+  }
 };
 
 export default About;

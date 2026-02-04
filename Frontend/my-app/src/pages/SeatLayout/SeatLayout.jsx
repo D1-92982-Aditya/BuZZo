@@ -35,7 +35,7 @@ export default function SeatLayout() {
   useEffect(() => {
     if (!selectedBus?.scheduleId) return;
 
-    fetch(`https://buzzo-5.onrender.com/buses/seats/${selectedBus.scheduleId}`)
+    fetch(`http://3.21.240.29:8080/buses/seats/${selectedBus.scheduleId}`)
       .then(res => res.json())
       .then(data => {
         setTotalSeats(data.length);
