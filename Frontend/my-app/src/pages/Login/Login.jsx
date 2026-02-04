@@ -35,6 +35,7 @@ const Login = () => {
       });
   
       if (!res.ok) {
+        console.log("url /api/auth/login ")
         throw new Error("Invalid credentials");
       }
   
