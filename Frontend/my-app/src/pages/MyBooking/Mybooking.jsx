@@ -45,7 +45,7 @@ const MyBooking = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`https://buzzo-5.onrender.com/tickets/${id}`, {
+      const res = await fetch(`/api/tickets/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`
