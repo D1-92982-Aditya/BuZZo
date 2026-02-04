@@ -23,7 +23,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch("http://3.21.240.29:8080/auth/login", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
